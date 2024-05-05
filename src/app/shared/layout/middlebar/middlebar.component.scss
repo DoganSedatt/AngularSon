@@ -1,0 +1,191 @@
+$red:#fef8f9;
+
+*{
+    margin:0;
+}
+    //justify-content: right;
+   // padding:5px;
+
+   
+// .collapse{
+//     display: flex;
+//     justify-content: center;
+//     align-items: center;
+// }
+  
+
+.navbar{
+    background-color: $red;
+    padding: 15px;
+    //margin-inline: 25px;
+    .navbar-nav{
+        margin-right: 30px;
+        li{
+          margin-right: 5px;;
+          a{
+              margin: 2px;
+            width: 35px;
+           }
+         }
+      } 
+      .navbar-nav:hover{
+        a:hover{
+            padding-top: 5px;
+            transition: 0.3s;
+            }
+      }
+      #fark{
+        //margin-left: 250px;
+       .btn{
+            background-color: #f6d3d9;
+        }
+        
+        
+            input:focus{
+                border-color: #814348 ;
+                border: 1px solid;
+        
+                box-shadow:0 0 0 0.2rem rgba(131, 70, 70, 0.25);
+                
+            }
+           ;
+            
+        
+    }
+   .navbar-brand{
+       img{
+         margin-left: 30px;  
+       }
+       
+   }
+   .kb{
+    background-color: #f6d3d9;
+    color: black;
+    border: none;
+   }
+   .ts{
+    a:hover{
+      background: linear-gradient(to bottom, rgb(193, 123, 123), rgb(116, 27, 27));
+      box-shadow: 0px 3px 20px 0px block; 
+      color:white;
+   }}
+   $red:#fef8f9;
+
+   *{
+       margin:0;
+   }
+       //justify-content: right;
+      // padding:5px;
+   
+      
+   // .collapse{
+   //     display: flex;
+   //     justify-content: center;
+   //     align-items: center;
+   // }
+     
+   .profile-menu {
+     position: relative;
+     display: flex; /* Flexbox kullanarak içerikleri yatay hizalar */
+     align-items: center; /* İçerikleri dikey olarak ortalar */
+     z-index: 1;
+   }
+   
+   .profile-button {
+     width: 40px;
+     height: 40px;
+     border-radius: 50%;
+     overflow: hidden;
+     cursor: pointer;
+     background-color: #333;
+     margin-left: 40px;
+   }
+   
+   .profile-button img {
+     width: 100%;
+     height: 100%;
+     object-fit: cover;
+   }
+   
+   .profile-name {
+     margin-left: 10px; /* Profil resmi ile isim arasına mesafe ekler */
+   }
+   
+   .menu-items {
+     display: none;
+     position: absolute;
+     top: 50px;
+     right: 0;
+     background-color: #f9f9f9;
+     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+     padding: 10px;
+   }
+   
+   .menu-items a {
+     display: block;
+     padding: 8px 12px;
+     text-decoration: none;
+     color: #333;
+   }
+   
+   .menu-items a:hover {
+     background-color: #de6767;
+   }
+   .navbar{
+       background-color: $red;
+       padding: 15px;
+       //margin-inline: 25px;
+       .navbar-nav{
+           margin-right: 30px;
+           li{
+             margin-right: 5px;;
+             a{
+                 margin: 2px;
+               width: 35px;
+              }
+            }
+         } 
+         .navbar-nav:hover{
+           a:hover{
+               padding-top: 5px;
+               transition: 0.3s;
+               }
+         }
+         #fark{
+           //margin-left: 250px;
+          .btn{
+               background-color: #f6d3d9;
+           }
+           
+           
+               input:focus{
+                   border-color: #814348 ;
+                   border: 1px solid;
+           
+                   box-shadow:0 0 0 0.2rem rgba(131, 70, 70, 0.25);
+                   
+               }
+              ;
+               
+           
+       }
+      .navbar-brand{
+          img{
+            margin-left: 30px;  
+          }
+          
+      }
+      .kb{
+       background-color: #f6d3d9;
+       color: black;
+       border: none;
+      }
+      .ts{
+       a:hover{
+         background: linear-gradient(to bottom, rgb(193, 123, 123), rgb(116, 27, 27));
+         box-shadow: 0px 3px 20px 0px block; 
+         color:white;
+      }}
+      
+   }
+}

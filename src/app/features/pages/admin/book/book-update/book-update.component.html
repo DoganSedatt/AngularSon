@@ -1,0 +1,68 @@
+<div class="content">
+    <div class="col-md-12">
+    <div class="card">
+        <div class="card-header">Güncelleme</div>
+        <div class="card-body">
+            <form [formGroup]="bookUpdateForm">
+                <p>Kitap ID=>{{bookId}}</p>
+                <div class="mb-3">
+                    <label>Kitap Adı:</label>
+                   
+                    <input type="text" placeholder="Ürün adı" formControlName="name" (change)="onNameChange($event)" class="form-control" />
+                </div>
+                
+                <small *ngIf="bookUpdateForm.get('name')?.hasError('required') && bookUpdateForm.get('name')?.touched" class="form-text text-muted">
+                    Kitap adı zorunludur.
+                </small>
+                <small *ngIf="bookUpdateForm.get('name')?.hasError('minlength') && bookUpdateForm.get('name')?.dirty"  class="form-text text-muted">
+                    Kitap adı en az iki karakter olmalıdır.
+                </small>
+
+                <div class="mb-3">
+                    <label for="categoryId" > Kategori: </label>
+                    <select name="categoryId" formControlName="categoryId" (change)="onCategoryChange($event)">
+                      <option *ngFor="let item of categories" [value]="item.id">
+                        {{ item.categoryName }}
+                      </option>
+                    </select></div>
+
+                <div class="mb-3">
+                    <label>ISBN:</label>
+                    <input type="text" placeholder="ISBN" formControlName="isbn" (change)="onIsbnChange($event)" class="form-control"/>
+                </div>
+                <div class="mb-3">
+                    <label>Dil:</label>
+                    <input type="text" placeholder="Dil" formControlName="language" class="form-control"/>
+                </div>
+                
+                <div class="mb-3">
+                    <label>Sayfa Sayısı:</label>
+                    <input type="text" placeholder="Sayfa sayısı" formControlName="page" (change)="onPageNumberChange($event)" class="form-control"/>
+                </div>
+                
+                 <div class="mb-3">
+                    <label for="publisherId" > Yayınevi: </label>
+                    <select name="publisherId" formControlName="publisherId" (change)="onPublisherChange($event)">
+                      <option *ngFor="let item of publishers" [value]="item.id">
+                        {{ item.name }}
+                      </option>
+                    </select></div>
+
+                <div class="mb-3">
+                    <label>Stok Adedi:</label>
+                    <input type="number" placeholder="stok adedi" formControlName="unitsInStock" (change)="onStockChange($event)" class="form-control"/>
+                </div>
+                <div class="mb-3">
+                    <label>Açıklama: </label>
+                    <textarea placeholder="Açıklama" formControlName="description" class="form-control "(change)="onDescriptionChange($event)"  style="height: 100px;"></textarea>
+                </div>
+                
+            </form>
+        </div>
+        <div class="card-footer">
+            <button class="btn btn-outline-dark w-50" (click)="updateToDb()">Güncelle</button>
+           
+           
+        </div>
+    </div>
+</div>

@@ -1,0 +1,24 @@
+<div class="content">
+    <div class="col-md-12">
+    <div class="card">
+        <div class="card-header">YayınEvi Güncelleme</div>
+        <div class="card-body">
+            <form [formGroup]="publisherUpdateForm">
+                
+                <div class="mb-3"><p>{{publisherId}}</p>
+                    <label>Yayınevi Adı:</label>
+                    <input type="text" placeholder="Yayınevi adı" formControlName="name" (change)="onNameChange($event)" class="form-control" value=""/>
+                </div>
+                
+                <small *ngIf="publisherUpdateForm.get('name')?.hasError('required') && publisherUpdateForm.get('name')?.touched" class="form-text text-muted">
+                    Kitap adı zorunludur.
+                </small>
+            </form>
+        </div>
+        <div class="card-footer">
+            <button class="btn btn-outline-dark w-50" (click)="updateToDb()">Güncelle</button>
+           
+           
+        </div>
+    </div>
+</div>
