@@ -18,43 +18,42 @@
   <input class="form-control me-2" style="width: 450px;"type="search" placeholder="Anahtar Kelimeye Göre Kitap Arayın" aria-label="Search" [(ngModel)]="searchKey" >
 </div>
 </div>
-</div>
-
-
-<div class="container mt-5">
-  <table class="table">
-    <thead>
-      <tr>
-       
-        <th scope="col">Kitap Adı</th>
-        <th scope="col">ISBN</th>
-        <th scope="col">Sayfa </th>
-        <th scope="col">Dil</th>
-        <th scope="col">Stok Adedi</th>
-        <th scope="col">Açıklama</th>
-        <th scope="col">Kategori</th>
-        <th scope="col">YayınEvi</th>
-        <th scope="col">Yazar</th>
-
-        
-        <th></th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let item of bookList | FilterBookListForCategory : searchKey">
-        <th scope="row">{{item.name}}</th>
-        <th scope="row">{{item.isbn}}</th>
-        <th scope="row">{{item.page}}</th>
-        <th scope="row">{{item.language}}</th>
-        <th scope="row">{{item.unitsInStock}}</th>
-        <th scope="row">{{item.description}}</th>
-        <th scope="row">{{item.categoryName}}</th>
-        <th scope="row">{{item.publisherName}}</th>
-        <th scope="row">{{item.authorName}}</th>
-        <button type="button" class="btn btn-outline-danger " id="boyut" >Ödünç Al</button>
-      </tr>
-    </tbody>
-  </table>
-  
-    <p *ngIf="bookList.length <= 0">Yükleniyor...</p>
-  </div>
+</div>  
+  <div class="container mt-5">
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">Kitap Adı</th>
+          <th scope="col">ISBN</th>
+          <th scope="col">Sayfa </th>
+          <th scope="col">Dil</th>
+          <th scope="col">Stok Adedi</th>
+          <th scope="col">Açıklama</th>
+          <th scope="col">Kategori</th>
+          <th scope="col">YayınEvi</th>
+          <th scope="col">Yazar</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of bookList | paginate : {itemsPerPage:tableSize,
+            currentPage:page,
+            totalItems:count}; let i =index">
+          <th scope="row">{{item.name}}</th>
+          <th scope="row">{{item.isbn}}</th>
+          <th scope="row">{{item.page}}</th>
+          <th scope="row">{{item.language}}</th>
+          <th scope="row">{{item.unitsInStock}}</th>
+          <th scope="row">{{item.description}}</th>
+          <th scope="row">{{item.categoryName}}</th>
+          <th scope="row">{{item.publisherName}}</th>
+          <th scope="row">{{item.authorName}}</th>
+         <button type="button" class="btn btn-outline-danger " id="boyut" >Ödünç Al</button>
+        </tr>
+      </tbody>
+    </table>
+      <pagination-controls
+      previousLabel="Prev"
+      nextLabel="Next"
+      (pageChange)="onTableDataChange($event)">
+      </pagination-controls>
+    </div>

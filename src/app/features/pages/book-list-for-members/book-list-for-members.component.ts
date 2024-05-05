@@ -15,6 +15,7 @@ import { FilterBookListForCategoryPipe } from "../../../core/pipes/FilterBookLis
 import { Book } from "../../models/book";
 import { AuthorService } from "../../services/author.service";
 import { Author } from "../../models/Author";
+import { NgxPaginationModule } from "ngx-pagination";
 
 
 
@@ -24,10 +25,17 @@ import { Author } from "../../models/Author";
     standalone: true,
     templateUrl: './book-list-for-members.component.html',
     styleUrl: './book-list-for-members.component.scss',
-    imports: [CommonModule, FormsModule, RouterLink, RouterModule,FilterlistPipe,FilterBookListForCategoryPipe]
+    imports: [CommonModule, FormsModule, RouterLink, RouterModule,NgxPaginationModule,FilterlistPipe,FilterBookListForCategoryPipe]
 })
 export class BookListComponentForMembers implements OnInit{
-  
+  title='pagination';
+  POSTS:any;
+  page:number=1;
+  count:number=0;
+  tableSize:number=5;
+  tableSizes:any=[5,10,15,20];
+
+
   bookList:GetAllBook[] = [];
   categoryList:Category[]=[];
   publisherList:Publisher[]=[];
@@ -48,6 +56,7 @@ export class BookListComponentForMembers implements OnInit{
           this.getPublishers();
           this.getBooks();
           this.getAuthors();
+          this.postList();
         }
     })
     
@@ -159,4 +168,22 @@ getBooksByAuthorId(authorId:number){
 )
  }
 
+ postList():void{
+  this.bookService.getAll().subscribe(response=>{
+    if(response && response.items){
+      this.POSTS=response.items;
+    console.log(this.POSTS);
+    }
+  })
+}
+onTableDataChange(event:number):void {
+  this.page=event;
+  this.postList();
+}
+
+onTableSizeChange(event:any):void{
+  this.tableSize=event.target.value;
+  this.page=1;
+  this.postList();
+}
 }

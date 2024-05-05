@@ -26,6 +26,7 @@ import { BookListForIsbnComponent } from './features/pages/book-list-for-isbn/bo
 
 
 
+
 export const routes: Routes = [
   { path: '', redirectTo: 'homepage', pathMatch: 'full' },
   { path: 'homepage', component: HomepageComponent},
@@ -37,6 +38,7 @@ export const routes: Routes = [
   {path:"getBooksForMembers",component:BookListComponentForMembers},
   {path:"books/author/:authorId",component:BookListComponentForAuthors},
   {path:"getBooksForIsbnFilter",component:BookListForIsbnComponent},
+  
   
 
   
