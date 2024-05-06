@@ -32,7 +32,7 @@ export class BookListComponentForMembers implements OnInit{
   POSTS:any;
   page:number=1;
   count:number=0;
-  tableSize:number=5;
+  tableSize:number=3;
   tableSizes:any=[5,10,15,20];
 
 
