@@ -6,7 +6,7 @@ import { NavbarComponent } from "../components/navbar/navbar.component";
 import { CategoryListComponent } from "../../features/pages/admin/category/category-list/category-list.component";
 import { BookListComponent } from '../../features/pages/admin/book/book-list/book-list.component';
 import { LayoutComponent } from "../layout/layout.component";
-import { BookListComponentForMembers } from "../../features/pages/book-list-for-members/book-list-for-members.component";
+import { BookListForMembersComponent } from "../../features/pages/book/book-list-for-members/book-list-for-members.component";
 
 
 
@@ -15,7 +15,7 @@ import { BookListComponentForMembers } from "../../features/pages/book-list-for-
     standalone: true,
     templateUrl: './homepage.component.html',
     styleUrl: './homepage.component.scss',
-    imports: [CommonModule, FormsModule, CategoryListComponent, BookListComponent, BookListComponentForMembers]
+    imports: [CommonModule, FormsModule, CategoryListComponent, BookListComponent, BookListForMembersComponent]
 })
 export class HomepageComponent {
     title = 'library';

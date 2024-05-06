@@ -4,5 +4,5 @@ export interface Member{
     lastName:string,
     email:string,
     password:string,
-    userId:number
+    userId:number,
 }

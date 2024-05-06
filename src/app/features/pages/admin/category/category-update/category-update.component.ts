@@ -19,9 +19,6 @@ export class CategoryUpdateComponent {
   getCategories: Category[] = [];
   categoryId:any;
 
-  
-  
-  
   constructor(
     private formBuilder: FormBuilder,
     private categoryService: CategoryService,

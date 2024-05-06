@@ -3,8 +3,6 @@ import { TopbarComponent } from './topbar/topbar.component';
 import { MiddlebarComponent } from "./middlebar/middlebar.component";
 import { BottombarComponent } from "./bottombar/bottombar.component";
 
-
-
 @Component({
     selector: 'app-layout',
     standalone: true,

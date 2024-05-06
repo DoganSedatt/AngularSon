@@ -16,7 +16,7 @@ export class MemberService {
 
   getAll():Observable<ResponseModel<Member>>{
     return this.httpClient.get<ResponseModel<Member>>(
-      this.apiUrl+'?PageIndex=0&PageSize=100'
+      this.apiUrl+'?PageIndex=0&PageSize=10'
     );}
 
     getById(id:number):Observable<Response<Member>>{

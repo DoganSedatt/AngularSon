@@ -14,11 +14,15 @@ body{
 	height: 550px;
 	background: rgb(245, 243, 243);
 	overflow: hidden;
+
 	border-radius: 10px;
 	//box-shadow: 10px 20px 50px #7c1818;
+
    
+
 	position: relative;
 	margin: auto;
+
 #chk{
 	display: none;
 }
@@ -28,7 +32,7 @@ body{
 	height: 100%;
 }
 h5{
-
+   
 	font-size:15px;
 	//justify-content:center;
 	position: relative;
@@ -41,7 +45,7 @@ h5{
 	font-family:'Courier New', Courier, monospace;
 	font-weight: bolder;
 
-
+	
 }
 label{
 	color: #271d1d;
@@ -64,10 +68,10 @@ input{
 	border: 1px solid rgb(242, 213, 213);
 	outline: none;
 	border-radius: 5px;
-
+	
 }
 .aaa{
-
+	
 	position: relative;
 	left:74px;
 }
@@ -75,9 +79,12 @@ input{
 	input:focus{
 		border-color: #814348 ;
 		border: 2px solid  #814348;
+
 		box-shadow:0 0 0 0.2rem rgba(131, 70, 70, 0.25);
 		
 	};
+
+
 .clr{
 	width: 60%;
 	height: 40px;
@@ -96,14 +103,18 @@ input{
 	cursor: pointer;
 	border:1px solid rgb(159, 53, 53);
 }
+
 }
 .clr:hover{
 	background: linear-gradient(to bottom, rgb(193, 123, 123), rgb(116, 27, 27));
 	color:white;
 }
+
+
 #chk:checked ~ .login label{
 	transform: scale(.6);
 }
+
 
   .main {
 	--angle: 0deg;
@@ -129,13 +140,13 @@ input{
 
   .password-container {
     position: relative;
-
+   
  .eye-icon {
     position: absolute;
     top: 70%;
     right: 100px; /* veya uygun bir mesafe belirleyin */
     transform: translateY(-80%);
     cursor: pointer;
-
+	
   }
-}
+  }

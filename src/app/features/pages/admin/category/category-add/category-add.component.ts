@@ -35,7 +35,7 @@ export class CategoryAddComponent {
        const formData:Category=this.categoryAddForm.value;
        console.log(formData.categoryName);
        this.categoryService.add(formData).subscribe((response)=>{
-         alert(formData.categoryName.toUpperCase()+" Başarıyla eklendi");
+         console.log("response",response);
        })
      }
    }

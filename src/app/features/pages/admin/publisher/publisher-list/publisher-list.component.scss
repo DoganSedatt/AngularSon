@@ -35,6 +35,8 @@
    } 
    .card-body{
       
+        
+       text-align: center;    
 
        label{
            font-size: bold;
@@ -83,6 +85,10 @@
             box-shadow:0 0 0 0.2rem rgb(91, 68, 68, 0.25);
            // .checked{
              //   color:black; 
+       }
+       .btn{
+        margin: 3px;
+      width: 100px;
        }
       
    }

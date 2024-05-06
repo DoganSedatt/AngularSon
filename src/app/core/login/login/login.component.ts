@@ -14,6 +14,8 @@ import { MemberService } from '../../../features/services/member.service';
 import { Response } from '../../../features/models/response';
 import { JWT_MAIL } from '../../constants/jwtAttributes';
 import { AuthService } from '../../services/Auth.service';
+import { LayoutComponent } from "../../../shared/layout/layout.component";
+import { RegisterService } from '../../services/register.service';
 import { BaseInputErrorsComponent } from '../../components/base-input-errors/base-input-errors.component';
 
 @Component({
@@ -50,18 +52,6 @@ export class LoginComponent implements OnInit {
   memberList: Member[] = [];
   currentToken: any = this.tokenService.getToken();
 
-
-
-  getMembers() {// Tüm üyeleri getir ve memberList'e at.
-    this.memberService.getAll().subscribe((response: Response<Member>) => {
-      this.memberList = response.items;
-      console.log("MemberList:", this.memberList);
-      this.memberList.forEach(t => {//memList'i gez ve her member'in mailini emailList içinde sakla
-        this.emailList.push(t.email);
-      });
-    });
-  }
-
   loginForm = this.formBuilder.group({
     email: ['', Validators.required],
     password: ['', [Validators.required, Validators.minLength(6),]],
@@ -83,9 +73,9 @@ export class LoginComponent implements OnInit {
   }
 
   onMemberLog() {
-    this.currentToken = this.tokenService.getToken();//Mevcut token'ı çek
-    let gelenToken = jwtDecode<any>(this.currentToken);//Bu tokenı decode et ve değişkene at
-    this.userMail = gelenToken[JWT_MAIL];//decode edilmiş tokenin içinden maili oku ve onu da değişkene at
+    this.currentToken = this.tokenService.getToken();
+    let gelenToken = jwtDecode<any>(this.currentToken);
+    this.userMail = gelenToken[JWT_MAIL];
     console.log("userMail:", this.userMail);
     console.log("Mailler:", this.emailList);
 
@@ -101,7 +91,7 @@ export class LoginComponent implements OnInit {
         console.log("userMail, emailList içinde bulunuyor.");
         for (let i = 0; i < this.memberList.length; i++) {
           if (this.memberList[i].email == this.userMail) {
-            console.log("Şuan sistemde giriş yapmış kullanıcı:", this.userMail);
+            console.log("Şu an sistemde giriş yapmış kullanıcı:", this.userMail);
             this.authService.loggedInMember=this.memberList[i];
             console.log("Tüm bilgi:",this.authService.loggedInMember);
           }
@@ -114,7 +104,15 @@ export class LoginComponent implements OnInit {
     }
   }
 
-  
+  getMembers() {
+    this.memberService.getAll().subscribe((response: Response<Member>) => {
+      this.memberList = response.items;
+      console.log("MemberList:", this.memberList);
+      this.memberList.forEach(t => {
+        this.emailList.push(t.email);
+      });
+    });
+  }
 
   SignInPasswordVisibility() {
     this.passwordsignInHidden = !this.passwordsignInHidden;

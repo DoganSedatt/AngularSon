@@ -33,6 +33,7 @@
         <th scope="col">Başlık</th>
         <th scope="col">ISBN</th>
         <th scope="col">Sayfa </th>
+        <th scope="col">Yazar</th>
         <th scope="col">Dil</th>
         <th scope="col">Stok</th>
         <th scope="col">Açıklama</th>
@@ -49,14 +50,15 @@
         <th scope="row">{{item.name}}</th>
         <th scope="row">{{item.isbn}}</th>
         <th scope="row">{{item.page}}</th>
+        <th scope="row">{{item.authorName}}</th>
         <th scope="row">{{item.language}}</th>
         <th scope="row">{{item.unitsInStock}}</th>
         <th scope="row">{{item.description}}</th>
         <th scope="row">{{item.categoryName}}</th>
         <th scope="row">{{item.publisherName}}</th>
        
-          <a routerLink="book/{{item.id}}/book-update" class="btn btn-outline-dark" id="boyut">Düzenle</a>
-          
+          <!-- <a routerLink="book/{{item.id}}/book-update" class="btn btn-outline-dark" id="boyut">Güncelle</a>-->
+          <button type="submit" routerLink="/book-update" (click)="onSelectBook(item)" class="btn btn-primary " id="boyut" >Güncelle</button>
         
        
           <button type="button" (click)="deleteBook($event,item.id)" class="btn btn-outline-danger " id="boyut" >Sil</button>
@@ -65,7 +67,10 @@
       </tr>
     </tbody>
   </table>
-    <p *ngIf="bookList.length <= 0">Yükleniyor...</p>
+  <div>
+    <p class="spinner-border text-dark mt-2" role="status"  *ngIf="bookList.length <= 0">
+      <span class="visually-hidden">Loading...</span>
+   </p>
     </div>
     </div>
     </div>

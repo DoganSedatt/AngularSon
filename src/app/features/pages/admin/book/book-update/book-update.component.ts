@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Route, Router } from '@angular/router';
 import { BookService } from '../../../../services/book.service';
 import { CategoryService } from '../../../../services/category.service';
 import { PublisherService } from '../../../../services/publisher.service';
@@ -10,8 +10,12 @@ import { Category } from '../../../../models/Category';
 import { Publisher } from '../../../../models/publisher';
 import { CommonModule } from '@angular/common';
 import { CategoryListComponent } from '../../category/category-list/category-list.component';
-
+import { GetAllBook } from '../../../../models/getAllBook';
 import { Response } from '../../../../models/response';
+import { Author } from '../../../../models/Author';
+import { AuthorService } from '../../../../services/author.service';
+import { BookListComponent } from '../book-list/book-list.component';
+import { SingleResponseModel } from '../../../../models/singleResponseModel';
 
 
 @Component({
@@ -23,46 +27,54 @@ import { Response } from '../../../../models/response';
 })
 export class BookUpdateComponent implements OnInit {
   
+  
+
   bookUpdateForm!: FormGroup;
-  getBook: Book[] = [];
- 
+  getBook: Book[]=[];
+
+
   categories: Category[] = [];
   publishers: Publisher[] = [];
+  authors: Author[]=[];
   bookId!: any;
   
-  
+
   
   constructor(
     private formBuilder: FormBuilder,
-    private bookService: BookService,
+    public bookService: BookService,
     private categoryService: CategoryService,
     private publisherService: PublisherService,
-    private activeToute: ActivatedRoute) { }
+    private authorService:AuthorService,
+    private activeToute: ActivatedRoute,
+    private router:Router) { }
 
 
   ngOnInit(): void {
     this.getAllCategories();
     this.getAllPublishers();
-
+    this.getAllAuthors();
     this.getBookById();
-    
     this.editBookAddForm();
-    
-  }
+   }
+
+
+
   editBookAddForm(){
     this.bookUpdateForm= this.formBuilder.group({
-      id:[this.bookId],
+      id:[this.bookService.selectedBook.id],
       name:["",[Validators.required, Validators.minLength(2)]],
       isbn:["",Validators.required],
       page:["",Validators.required],
       publisherId:["",Validators.required],
       categoryId:["",Validators.required],
+      authorId:["",Validators.required],
       language:["",Validators.required],
       description:["",Validators.required],
       unitsInStock:["",[Validators.required,Validators.min(0)]],
     })}
 
-  
+   
   
 
 
@@ -90,6 +102,13 @@ export class BookUpdateComponent implements OnInit {
     );
   }
 
+  getAllAuthors(){
+    this.authorService.getAllAuthors().subscribe((response: ResponseModel<Author>)=>{
+      this.authors=response.items;
+      console.log(this.authors);
+    })
+  }
+
   getAllPublishers() {
     this.publisherService.getAllPublisher().subscribe((response: ResponseModel<Publisher>) => {
       this.publishers = response.items;
@@ -105,6 +124,12 @@ export class BookUpdateComponent implements OnInit {
     const selectedPublisher = event.target.value;
     const publisher = this.publishers.find(item => item.id == selectedPublisher);
     console.log(publisher);
+  }
+
+  onAuthorChange(event: any) {
+    const selectedAuthor = event.target.value;
+    const author = this.authors.find(item => item.id == selectedAuthor);
+    console.log(author);
   }
  
  

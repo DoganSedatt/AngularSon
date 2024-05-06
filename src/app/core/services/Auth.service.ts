@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Member } from '../../features/models/member';
+import { JWT_ROLES } from '../constants/jwtAttributes';
+import { TokenService } from './token.service';
 
 @Injectable({
   providedIn: 'root'
@@ -7,7 +9,8 @@ import { Member } from '../../features/models/member';
 export class AuthService {
   private isLoggedIn = false;
   loggedInMember: Member | null = null;
-  constructor() { }
+  
+  constructor(private tokenService:TokenService) { }
 
   login() {
     this.isLoggedIn = true;
@@ -26,6 +29,9 @@ export class AuthService {
   isAuthenticated(): boolean {
     return JSON.parse(localStorage.getItem('isLoggedIn') || 'false' );
   }
+
+ 
+
 }
 
 

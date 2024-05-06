@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { BookService } from '../../../../services/book.service';
 import { CommonModule } from '@angular/common';
@@ -19,12 +19,18 @@ import { Author } from '../../../../models/Author';
   styleUrl: './add-book.component.scss'
 })
 export class AddBookComponent implements OnInit{
+  
+  bookId:any;
+  books: Book[]=[];
   bookAddForm !: FormGroup ;
   categories:Category[]=[];
   publishers:Publisher[]=[];
   authors:Author[]=[];
   constructor(private formBuilder:FormBuilder,
-    private bookService:BookService,private categoryService:CategoryService,private publisherService:PublisherService,private authorService:AuthorService){}
+    private bookService:BookService,private categoryService:CategoryService,private publisherService:PublisherService,private authorService:AuthorService)
+    {
+     
+    }
   
   
   ngOnInit(): void {
@@ -32,6 +38,7 @@ export class AddBookComponent implements OnInit{
     this.getAllCategories();
     this.getAllPublishers();
     this.getAllAuthors();
+   
   }
   getAllCategories() {
     this.categoryService.getAll().subscribe(

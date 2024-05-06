@@ -38,7 +38,6 @@ export class AddAuthorComponent {
        console.log(formData.name);
        this.authorService.add(formData).subscribe((response)=>{
          console.log("response",response);
-         alert(formData.name.toUpperCase() +" başarıyla eklendi")
        })
      }
    }

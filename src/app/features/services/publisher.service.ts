@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 import { ResponseModel } from '../models/responseModel';
 import { Publisher } from '../models/publisher';
 import { Response } from '../models/response';
+import { SingleResponseModel } from '../models/singleResponseModel';
 @Injectable({
   providedIn: 'root'
 })
@@ -17,8 +18,8 @@ export class PublisherService {
       'http://localhost:60805/api/Publishers?PageIndex=0&PageSize=10'
     );
   }
-  getById(id: number): Observable<Response<Publisher>> {
-    return this.httpClient.get<Response<Publisher>>('http://localhost:60805/api/Publishers/' + id)
+  getById(id: number): Observable<ResponseModel<Publisher>> {
+    return this.httpClient.get<ResponseModel<Publisher>>('http://localhost:60805/api/Publishers/' + id)
   }
   add(publisher: Publisher): Observable<any> {
     const token = localStorage.getItem('Token');

@@ -1,6 +1,6 @@
+import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { LoadingService } from '../../services/loading.service';
-import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-loading',
@@ -10,6 +10,7 @@ import { CommonModule } from '@angular/common';
   styleUrl: './loading.component.scss'
 })
 export class LoadingComponent {
+
   constructor(private loadingService: LoadingService) {}
 
   //getter-setter

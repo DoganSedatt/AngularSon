@@ -6,6 +6,8 @@ import { PublisherService } from '../../../../services/publisher.service';
 
 import { CommonModule } from '@angular/common';
 import { Response } from '../../../../models/response';
+import { SingleResponseModel } from '../../../../models/singleResponseModel';
+import { ResponseModel } from '../../../../models/responseModel';
 
 @Component({
   selector: 'app-update-publisher',
@@ -16,7 +18,7 @@ import { Response } from '../../../../models/response';
 })
 export class publisherUpdateComponent {
   publisherUpdateForm!: FormGroup;
-  getPublisher: Publisher[] = [];
+  getPublisher: Publisher[]=[];
   publisherId:any;
 
   
@@ -51,7 +53,7 @@ export class publisherUpdateComponent {
   getById(){
     this.publisherId = this.activeRoute.snapshot.paramMap.get('id');
     this.publisherService.getById(this.publisherId).subscribe({
-      next: (response:Response<Publisher>) => {
+      next: (response:ResponseModel<Publisher>) => {
         this.getPublisher=response.items;
         console.log("Response:",response)
         

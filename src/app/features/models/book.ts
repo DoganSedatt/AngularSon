@@ -12,5 +12,7 @@ export interface Book {
     publisherName:string;
     authorName:string;
     categoryName:string;
+
     
 }
+

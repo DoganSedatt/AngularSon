@@ -18,12 +18,13 @@
                 <tr *ngFor="let item of publisherList " >  <!-- | filterBookListForCategory : searchKey -->
                   <th scope="row">{{item.name}}</th>
                   <th>
-                  <button  class="btn btn-outline-danger w-50 " (click)="deletePublisher($event,item.id)" > Sil</button> 
-                  <a routerLink="publisher/{{item.id}}/publisherupdate" class="btn btn-outline-dark w-50">Düzenle</a>
+                  <button  class="btn btn-outline-danger ml-1" (click)="deletePublisher($event,item.id)" > Sil</button> 
+                  <a routerLink="publisher/{{item.id}}/publisherupdate" class="btn btn-outline-dark">Güncelle</a>
                 </tr>
               </tbody>
            
-              <p *ngIf="publisherList.length <= 0">Yükleniyor...</p>
+              <p class="spinner-border text-dark mt-2" role="status"  *ngIf="publisherList.length <= 0">
+                <span class="visually-hidden">Loading...</span>
              
          </table>
       

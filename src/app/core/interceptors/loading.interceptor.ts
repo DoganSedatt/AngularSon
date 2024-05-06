@@ -1,7 +1,7 @@
 import { HttpInterceptorFn } from '@angular/common/http';
-import { inject } from '@angular/core';
-import { LoadingService } from '../services/loading.service'; 
+import { LoadingService } from '../services/loading.service';
 import { finalize } from 'rxjs';
+import { inject } from '@angular/core';
 
 export const loadingInterceptor: HttpInterceptorFn = (req, next) => {
   const loadingService = inject(LoadingService);

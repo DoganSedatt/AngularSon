@@ -1,4 +1,4 @@
-<div class="content">
+<div class="content animate__animated  animate__slideInUp">
     <div class="col-md-12">
     <div class="card">
         <div class="card-header">Güncelleme</div>
@@ -10,7 +10,7 @@
                     <input type="text" placeholder="Kategori adı" formControlName="categoryName" (change)="onNameChange($event)" class="form-control" value=""/>
                 </div>
                 
-                <small *ngIf="categoryUpdateForm.get('categoryName')?.hasError('required') && categoryUpdateForm.get('categoryName')?.touched" class="form-text">
+                <small *ngIf="categoryUpdateForm.get('categoryName')?.hasError('required') && categoryUpdateForm.get('CategoryName')?.touched" class="form-text">
                     Kategori adı zorunludur.
                 </small>
                 <small *ngIf="categoryUpdateForm.get('categoryName')?.hasError('minlength') && categoryUpdateForm.get('categoryName')?.dirty"  class="form-text text-muted">
