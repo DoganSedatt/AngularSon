@@ -14,6 +14,7 @@ import { CategoryService } from '../../../services/category.service';
 import { PublisherService } from '../../../services/publisher.service';
 import { AuthorService } from '../../../services/author.service';
 import { ResponseModel } from '../../../models/responseModel';
+import { AuthService } from '../../../../core/services/Auth.service';
 
 @Component({
   selector: 'app-book-list-for-members',
@@ -40,7 +41,8 @@ export class BookListForMembersComponent {
 
   constructor(private bookService: BookService, private router: Router, private categoryService: CategoryService,
     private publisherService: PublisherService, private authorService: AuthorService,
-    private activatedRoute: ActivatedRoute) { }
+    private activatedRoute: ActivatedRoute,
+    public authService:AuthService) { }
 
   ngOnInit(): void {
     this.activatedRoute.params.subscribe(params => {

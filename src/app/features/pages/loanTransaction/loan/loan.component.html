@@ -1,22 +1,39 @@
-<!-- loan.component.html -->
+<!-- loan-form.component.html -->
 
 <div class="container mt-5">
-    <div class="row">
-      <div class="col-md-12">
-        <div class="card">
-          <div class="card-body">
-            <h5 class="card-title">{{ bookService.selectedBook.name }}</h5>
-            <h6 class="card-subtitle mb-2 text-muted">ISBN: {{ bookService.selectedBook.isbn }}</h6>
-            <p class="card-text">Sayfa: {{ bookService.selectedBook.page }}</p>
-            <p class="card-text">Dil: {{ bookService.selectedBook.language }}</p>
-            <p class="card-text">Stok Adedi: {{ bookService.selectedBook.unitsInStock }}</p>
-            <p class="card-text">Açıklama: {{ bookService.selectedBook.description }}</p>
-            <p class="card-text">Kategori: {{ bookService.selectedBook.categoryName }}</p>
-            <p class="card-text">Yayın Evi: {{ bookService.selectedBook.publisherName }}</p>
-            <p class="card-text">Yazar: {{ bookService.selectedBook.authorName }}</p>
+  <div class="row">
+      <div class="col-md-6 offset-md-3">
+          <div class="card">
+              <div class="card-body">
+                <h5 class="card-title">Ödünç Alacak Kişi:{{authService.loggedInMember?.firstName?.toUpperCase()}}</h5>
+                  <h5 class="card-title">Ödünç Alınacak Kitap:{{ bookService.selectedBook.name }}</h5>
+                  
+
+                  <form [formGroup]="loanForm">
+
+                    <div class="mb-3">
+                      <label for="bookId">Ödünç Alınacak Kitap:</label>
+                      <input type="text" class="form-control" id="bookId" formControlName="bookId" [value]="bookService.selectedBook.name" readonly required>
+                  </div>
+                  
+                      <div class="mb-3">
+                          <label for="memberId">Ödünç Alacak:</label>
+                          <input type="text" class="form-control" id="memberId" formControlName="memberId" [value]="authService.loggedInMember?.firstName" readonly required>
+                      </div>
+
+                      <div class="fmb-3" hidden>
+                        <label for="returnStatus">Ödünç Durumu:</label>
+                        <input type="number" class="form-control" id="returnStatus"  formControlName="returnStatus" readonly  required>
+                    </div>
+
+                      <div class="mb-3" >
+                          <label for="returnTime">Ödünç Verme Tarihi:</label>
+                          <input type="date" class="form-control" id="returnTime" formControlName="returnTime"   required>
+                      </div>
+                      <button type="submit" class="btn btn-primary" (click)="addToDb()">Kitap Ödünç Al</button>
+                  </form>
+              </div>
           </div>
-        </div>
       </div>
-    </div>
   </div>
-  
+</div>
