@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { FilterBookListForIsbnPipePipe } from '../../../../core/pipes/filter-book-list-for-isbn-pipe.pipe';
 import { GetAllBook } from '../../../models/getAllBook';
 import { Category } from '../../../models/Category';
@@ -12,31 +12,40 @@ import { CategoryService } from '../../../services/category.service';
 import { PublisherService } from '../../../services/publisher.service';
 import { AuthorService } from '../../../services/author.service';
 import { ResponseModel } from '../../../models/responseModel';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 @Component({
   selector: 'app-book-list-for-isbn',
   standalone: true,
-  imports: [CommonModule,FormsModule,FilterBookListForIsbnPipePipe,RouterModule],
+  imports: [CommonModule,FormsModule,FilterBookListForIsbnPipePipe,RouterModule,NgxPaginationModule],
   templateUrl: './book-list-for-isbn.component.html',
   styleUrl: './book-list-for-isbn.component.scss'
 })
 export class BookListForIsbnComponent {
+  title = 'pagination';
+  POSTS: any;
+  page: number = 1;
+  count: number = 0;
+  tableSize: number = 3;
+  tableSizes: any = [5, 10, 15, 20];
+  
   bookList:GetAllBook[] = [];
   categoryList:Category[]=[];
   publisherList:Publisher[]=[];
   authorList : Author[]=[];
   today: Date = new Date();
-  searchKey : string = ' ';
+  searchKey : string = '';
   constructor(private bookService : BookService,
     private categoryService:CategoryService,
     private publisherService:PublisherService,
-    private authorService:AuthorService){}
+    private authorService:AuthorService,
+    private router: Router,){}
   ngOnInit(): void {
     this.getCategories();
     this.getPublishers();
-    this.getBooks();
+    this.postList();
     this.getAuthors();
-    
+    this.getBooks();
   }
 
   getBooks(){
@@ -111,5 +120,28 @@ export class BookListForIsbnComponent {
         console.log('backend isteği sonlandı.');
       }
     });
+  }
+  postList(): void {
+    this.bookService.getAll().subscribe(response => {
+      if (response && response.items) {
+        this.POSTS = response.items;
+        console.log(this.POSTS);
+      }
+    })
+  }
+  onTableDataChange(event: number): void {
+    this.page = event;
+    this.postList();
+  }
+
+  onTableSizeChange(event: any): void {
+    this.tableSize = event.target.value;
+    this.page = 1;
+    this.postList();
+  }
+
+  onSelectBook(book: GetAllBook) {
+    this.bookService.selectedBook = book; // Seçilen kitabı sakla
+    this.router.navigate(['/loanTransaction']); // loan.html sayfasına yönlendir
   }
 }

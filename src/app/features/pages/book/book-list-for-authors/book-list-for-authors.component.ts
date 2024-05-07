@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { ActivatedRoute, RouterLink, RouterModule } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink, RouterModule } from '@angular/router';
 import { FilterlistPipe } from '../../../../core/pipes/filterlist.pipe';
 import { FilterBookListForCategoryPipe } from '../../../../core/pipes/FilterBookListForCategory.pipe';
 import { GetAllBook } from '../../../models/getAllBook';
@@ -14,22 +14,35 @@ import { PublisherService } from '../../../services/publisher.service';
 import { AuthorService } from '../../../services/author.service';
 import { ResponseModel } from '../../../models/responseModel';
 import { Book } from '../../../models/book';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 @Component({
   selector: 'app-book-list-for-authors',
   standalone: true,
-  imports: [CommonModule, FormsModule, RouterLink, RouterModule,FilterlistPipe,FilterBookListForCategoryPipe],
+  imports: [CommonModule, FormsModule, RouterLink, RouterModule,FilterlistPipe,FilterBookListForCategoryPipe,NgxPaginationModule],
   templateUrl: './book-list-for-authors.component.html',
   styleUrl: './book-list-for-authors.component.scss'
 })
 export class BookListForAuthorsComponent {
+  title = 'pagination';
+  POSTS: any;
+  page: number = 1;
+  count: number = 0;
+  tableSize: number = 3;
+  tableSizes: any = [5, 10, 15, 20];
+
   bookList:GetAllBook[] = [];
   categoryList:Category[]=[];
   publisherList:Publisher[]=[];
   authorList:Author[]=[];
-  today: Date = new Date();
-  searchKey : string = ' ';
-  constructor(private bookService : BookService,private categoryService:CategoryService,private publisherService:PublisherService,private authorService:AuthorService,private activatedRoute:ActivatedRoute){}
+  searchKey : string = '';
+
+  constructor(private bookService : BookService,
+    private categoryService:CategoryService,
+    private publisherService:PublisherService,
+    private authorService:AuthorService,
+    private activatedRoute:ActivatedRoute,
+  private router:Router){}
   ngOnInit(): void {
     this.activatedRoute.params.subscribe(params=>{
       if(params["categoryId"]){
@@ -41,8 +54,10 @@ export class BookListForAuthorsComponent {
         else{
           this.getCategories();
           this.getPublishers();
-          this.getBooks();
+          
           this.getAuthors();
+          this.postList();
+          this.getBooks();
         }
     })
     
@@ -154,5 +169,28 @@ getBooksByAuthorId(authorId:number){
   }
 )
  }
+ postList(): void {
+  this.bookService.getAll().subscribe(response => {
+    if (response && response.items) {
+      this.POSTS = response.items;
+      console.log(this.POSTS);
+    }
+  })
+}
+onTableDataChange(event: number): void {
+  this.page = event;
+  this.postList();
+}
+
+onTableSizeChange(event: any): void {
+  this.tableSize = event.target.value;
+  this.page = 1;
+  this.postList();
+}
+
+onSelectBook(book: GetAllBook) {
+  this.bookService.selectedBook = book; // Seçilen kitabı sakla
+  this.router.navigate(['/loanTransaction']); // loan.html sayfasına yönlendir
+}
 
 }

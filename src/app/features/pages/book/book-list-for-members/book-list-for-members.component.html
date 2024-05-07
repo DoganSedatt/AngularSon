@@ -1,6 +1,27 @@
 <div class="container mt-5">
+    <div class="mb-3">
+    
+        <br>
+         <div class="row">
+           <div class="col-md-3">
+         <div class="dropdown" style="margin-left:60%;">
+           <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+             Genel Arama
+           </button>
+           <ul class="dropdown-menu" >
+       
+             <li><a class="dropdown-item" routerLink="/getBooksForIsbnFilter" >ISBN Arama</a></li>
+       
+           </ul>
+         </div>
+       </div>
+       <div class="col-md-9">
+         <input class="form-control me-2" style="width: 450px;"type="search" placeholder="Anahtar Kelimeye Göre Kitap Arayın" aria-label="Search" [(ngModel)]="searchKey" >
+       </div>
+       </div>
+       </div>
     <div class="row">
-        <div class="col-md-4 mb-3" *ngFor="let item of bookList | paginate : {itemsPerPage: tableSize, currentPage: page, totalItems: count}; let i = index">
+        <div class="col-md-4 mb-3" *ngFor="let item of bookList | filterlist:searchKey | paginate : {itemsPerPage: tableSize, currentPage: page, totalItems: count}; let i = index">
             <div class="card">
                 <div class="card-body">
                     <h5 class="card-title">{{item.name}}</h5>
