@@ -61,8 +61,5 @@ export class BookService {
       'Authorization': `Bearer ${token}`
     });
     return this.httpClient.get<Response<Book>>(this.apiUrl+'/getbooksbyauthorid?PageIndex=0&PageSize=20&authorId='+authorId,{headers:headers})
-  
   }
-
-
 }

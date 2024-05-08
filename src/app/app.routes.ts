@@ -24,6 +24,7 @@ import { BookListForMembersComponent } from './features/pages/book/book-list-for
 import { BookListForAuthorsComponent } from './features/pages/book/book-list-for-authors/book-list-for-authors.component';
 import { BookListForIsbnComponent } from './features/pages/book/book-list-for-isbn/book-list-for-isbn.component';
 import { LoanComponent } from './features/pages/loanTransaction/loan/loan.component';
+import { LoanHistoryComponent } from './features/pages/user-account/loan-history/loan-history/loan-history.component';
 
 
 export const routes: Routes = [
@@ -43,7 +44,8 @@ export const routes: Routes = [
   
   {path:"homepage/userprofile/:id",component:UserAccountComponent,
   children:[
-    {path:"edituser",component:UserEditComponent}
+    {path:"edituser",component:UserEditComponent},
+    {path:'loanHistory',component:LoanHistoryComponent}
   ]
 },
 
