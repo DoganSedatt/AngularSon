@@ -25,7 +25,7 @@ export class BookService {
       );
   }
 
-  getById(id:string):Observable<Response<Book>>{
+  getById(id:number):Observable<Response<Book>>{
     return this.httpClient.get<Response<Book>>('http://localhost:60805/api/Books/'+id)
   }
   
@@ -61,5 +61,8 @@ export class BookService {
       'Authorization': `Bearer ${token}`
     });
     return this.httpClient.get<Response<Book>>(this.apiUrl+'/getbooksbyauthorid?PageIndex=0&PageSize=20&authorId='+authorId,{headers:headers})
+  
   }
+
+
 }

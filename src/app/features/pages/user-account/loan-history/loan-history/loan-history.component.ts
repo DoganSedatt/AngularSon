@@ -3,12 +3,13 @@ import { LoanTransactionService } from '../../../../services/loan-transaction.se
 import { AuthService } from '../../../../../core/services/Auth.service';
 import { LoanTransaction } from '../../../../models/loanTransaction';
 import { Response } from '../../../../models/response';
-import { LoanGetById } from '../../../../models/LoanGetById';
+
 import { ResponseModel } from '../../../../models/responseModel';
 import { CommonModule } from '@angular/common';
 import { Book } from '../../../../models/book';
 import { BookService } from '../../../../services/book.service';
 import { MemberService } from '../../../../services/member.service';
+import { LoanGetById } from '../../../../models/LoanGetById';
 
 @Component({
   selector: 'app-loan-history',

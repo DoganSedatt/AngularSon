@@ -3,7 +3,6 @@ import { Injectable } from '@angular/core';
 import { LoanTransaction } from '../models/loanTransaction';
 import { Observable } from 'rxjs';
 import { Response } from '../models/response';
-import { LoanGetById } from '../models/LoanGetById';
 import { ResponseModel } from '../models/responseModel';
 
 
@@ -22,8 +21,8 @@ export class LoanTransactionService {
     return this.httpClient.post<LoanTransaction>(this.apiUrl,loanTransaction,{headers:headers})
   }
 
-  getById(id:string):Observable<Response<LoanGetById>>{
-    return this.httpClient.get<Response<LoanGetById>>('http://localhost:60805/api/LoanTransactions/'+id)
+  getById(id:string):Observable<Response<LoanTransaction>>{
+    return this.httpClient.get<Response<LoanTransaction>>('http://localhost:60805/api/LoanTransactions/'+id)
   }
 
   getAll():Observable<ResponseModel<LoanTransaction>>{

@@ -34,6 +34,7 @@ export class AddPublisherComponent {
       console.log(formData.name);
       this.publisherService.add(formData).subscribe((response)=>{
         alert(formData.name.toUpperCase()+" başarıyla eklendi");
+
       })
     }
   }

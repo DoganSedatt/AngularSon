@@ -5,9 +5,9 @@
         <div class="card-body">
             <form [formGroup]="publisherUpdateForm">
                 
-                <div class="mb-3"><p>{{publisherId}}</p>
+                <div class="mb-3"><p>{{publisherService.selectedPublisher.publisherId}}</p>
                     <label id="publisherName">Yayınevi Adı:</label>
-                    <input type="text" id="publisherId" placeholder="Yayınevi adı" formControlName="name" (change)="onNameChange($event)" class="form-control" />
+                    <input type="text" id="publisherId" placeholder={{publisherService.selectedPublisher.name}} formControlName="name" (change)="onNameChange($event)" class="form-control" />
                 </div>
                 
                 <small *ngIf="publisherUpdateForm.get('name')?.hasError('required') && publisherUpdateForm.get('name')?.touched" class="form-text text-muted">

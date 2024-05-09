@@ -19,7 +19,7 @@ export class MemberService {
       this.apiUrl+'?PageIndex=0&PageSize=10'
     );}
 
-    getById(id:string):Observable<Response<Member>>{
+    getById(id:number):Observable<Response<Member>>{
       return this.httpClient.get<Response<Member>>('http://localhost:60805/api/Members/'+id)
     }
 

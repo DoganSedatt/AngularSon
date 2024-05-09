@@ -10,12 +10,12 @@ import { SingleResponseModel } from '../models/singleResponseModel';
   providedIn: 'root'
 })
 export class PublisherService {
-
+  selectedPublisher:any;
   constructor(private httpClient: HttpClient) { }
 
   getAllPublisher(): Observable<ResponseModel<Publisher>> {
     return this.httpClient.get<ResponseModel<Publisher>>(
-      'http://localhost:60805/api/Publishers?PageIndex=0&PageSize=10'
+      'http://localhost:60805/api/Publishers?PageIndex=0&PageSize=30'
     );
   }
   getById(id: number): Observable<ResponseModel<Publisher>> {
@@ -26,7 +26,7 @@ export class PublisherService {
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${token}`
     });
-    return this.httpClient.post<any>('http://localhost:60805/api/Publishers?PageIndex=0&PageSize=10', publisher, { headers: headers })
+    return this.httpClient.post<any>('http://localhost:60805/api/Publishers', publisher, { headers: headers })
   }
 
   editPublisher(publisher: Publisher): Observable<any> {

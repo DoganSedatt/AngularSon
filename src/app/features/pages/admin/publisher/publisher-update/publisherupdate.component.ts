@@ -24,7 +24,7 @@ export class publisherUpdateComponent {
   
   constructor(
     private formBuilder: FormBuilder,
-    private publisherService: PublisherService,
+    public publisherService: PublisherService,
     private activeRoute: ActivatedRoute,
     private route: Router) { }
 
@@ -37,7 +37,7 @@ export class publisherUpdateComponent {
   }
   updatePublisherAddForm(){
     this.publisherUpdateForm= this.formBuilder.group({
-      id:[this.publisherId],
+      id:[this.publisherService.selectedPublisher.id],
       name:["",[Validators.required, Validators.minLength(2)]],
       
     })}
@@ -76,4 +76,7 @@ export class publisherUpdateComponent {
       );
     }
   }
+
+  
+
 }

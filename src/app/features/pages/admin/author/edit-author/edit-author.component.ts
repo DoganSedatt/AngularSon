@@ -3,7 +3,7 @@ import { Author } from '../../../../models/Author';
 import { AuthorService } from '../../../../services/author.service';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ResponseModel } from '../../../../models/responseModel';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 
 @Component({
@@ -20,7 +20,7 @@ export class EditAuthorComponent {
   today: Date = new Date();
   searchKey : string = ' ';
 
-  constructor(private authorService:AuthorService, private formBuilder: FormBuilder){}
+  constructor(private authorService:AuthorService, private formBuilder: FormBuilder,private router:Router){}
 
   ngOnInit(): void {
    
@@ -65,4 +65,9 @@ export class EditAuthorComponent {
     }
   }
 
+  onSelectAuthor(author: Author) {
+    this.authorService.selectedAuthor = author; // Seçilen kitabı sakla
+    this.router.navigate(['admin/editauthor/update/:id']); 
+    console.log("OnSelectedAuthor:",author);
+  }
 }

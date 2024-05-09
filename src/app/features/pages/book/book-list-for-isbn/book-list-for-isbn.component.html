@@ -24,6 +24,7 @@
       <div class="col-md-4 mb-3" *ngFor="let item of bookList | filterBookListForIsbnPipe:searchKey | paginate : {itemsPerPage: tableSize, currentPage: page, totalItems: count}; let i = index">
           <div class="card">
               <div class="card-body">
+                <img src="/assets/img/arkaplan.jpg" alt="" width="350px" height="300px">
                   <h5 class="card-title">{{item.name}}</h5>
                   <h6 class="card-subtitle mb-2 text-muted">ISBN: {{item.isbn}}</h6>
                   <p class="card-text">Sayfa: {{item.page}}</p>
@@ -33,7 +34,7 @@
                   <p class="card-text">Kategori: {{item.categoryName}}</p>
                   <p class="card-text">Yayın Evi: {{item.publisherName}}</p>
                   <p class="card-text">Yazar: {{item.authorName}}</p>
-                  <button type="button" class="btn btn-outline-danger" (click)="onSelectBook(item)">Ödünç Al</button>
+                  <button type="button" class="btn btn-outline-danger" *ngIf="authService.loggedInMember!=null" (click)="onSelectBook(item)">Ödünç Al</button>
               </div>
           </div>
       </div>

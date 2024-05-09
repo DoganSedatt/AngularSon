@@ -13,6 +13,7 @@ import { PublisherService } from '../../../services/publisher.service';
 import { AuthorService } from '../../../services/author.service';
 import { ResponseModel } from '../../../models/responseModel';
 import { NgxPaginationModule } from 'ngx-pagination';
+import { AuthService } from '../../../../core/services/Auth.service';
 
 @Component({
   selector: 'app-book-list-for-isbn',
@@ -39,7 +40,8 @@ export class BookListForIsbnComponent {
     private categoryService:CategoryService,
     private publisherService:PublisherService,
     private authorService:AuthorService,
-    private router: Router,){}
+    private router: Router,
+    public authService:AuthService){}
   ngOnInit(): void {
     this.getCategories();
     this.getPublishers();

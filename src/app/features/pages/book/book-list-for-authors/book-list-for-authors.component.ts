@@ -15,6 +15,7 @@ import { AuthorService } from '../../../services/author.service';
 import { ResponseModel } from '../../../models/responseModel';
 import { Book } from '../../../models/book';
 import { NgxPaginationModule } from 'ngx-pagination';
+import { AuthService } from '../../../../core/services/Auth.service';
 
 @Component({
   selector: 'app-book-list-for-authors',
@@ -42,7 +43,8 @@ export class BookListForAuthorsComponent {
     private publisherService:PublisherService,
     private authorService:AuthorService,
     private activatedRoute:ActivatedRoute,
-  private router:Router){}
+  private router:Router,
+  public authService:AuthService){}
   ngOnInit(): void {
     this.activatedRoute.params.subscribe(params=>{
       if(params["categoryId"]){

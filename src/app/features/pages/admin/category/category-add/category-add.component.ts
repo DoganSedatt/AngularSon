@@ -36,6 +36,7 @@ export class CategoryAddComponent {
        console.log(formData.categoryName);
        this.categoryService.add(formData).subscribe((response)=>{
          console.log("response",response);
+         alert(formData.categoryName.toUpperCase() +" başarıyla eklendi")
        })
      }
    }
