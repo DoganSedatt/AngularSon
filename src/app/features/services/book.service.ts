@@ -25,7 +25,7 @@ export class BookService {
       );
   }
 
-  getById(id:number):Observable<Response<Book>>{
+  getById(id:string):Observable<Response<Book>>{
     return this.httpClient.get<Response<Book>>('http://localhost:60805/api/Books/'+id)
   }
   

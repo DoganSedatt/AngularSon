@@ -1,42 +1,64 @@
 <div class="container mt-5">
-    <div class="mb-3">
-    
-        <br>
-         <div class="row">
-           <div class="col-md-3">
-         <div class="dropdown" style="margin-left:60%;">
-           <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-             Genel Arama
-           </button>
-           <ul class="dropdown-menu" >
+  <div class="mb-3">
+  
+      <br>
+       <div class=" row">
+      <div class="dropfirst d-flex align-items-center">       
+            <div class="dropdown-center me-2" >
+         <button class="first btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+           Genel Arama
+         </button>
+         <ul class="dropdown-menu" >
+        
+           <li><a class="dropdown-item" routerLink="/getBooksForIsbnFilter" >ISBN Arama</a></li>
+     
+         </ul>
+       </div>
+      
+       <input  class="form-control me-2 fark" style="width: 450px;"type="search" placeholder="Anahtar Kelimeye Göre Kitap Arayın" aria-label="Search" [(ngModel)]="searchKey" >
        
-             <li><a class="dropdown-item" routerLink="/getBooksForIsbnFilter" >ISBN Arama</a></li>
-       
-           </ul>
-         </div>
-       </div>
-       <div class="col-md-9">
-         <input class="form-control me-2" style="width: 450px;"type="search" placeholder="Anahtar Kelimeye Göre Kitap Arayın" aria-label="Search" [(ngModel)]="searchKey" >
-       </div>
-       </div>
-       </div>
-    <div class="row">
-        <div class="col-md-4 mb-3" *ngFor="let item of bookList | filterlist:searchKey | paginate : {itemsPerPage: tableSize, currentPage: page, totalItems: count}; let i = index">
-            <div class="card">
-                <div class="card-body">
-                    <h5 class="card-title">{{item.name}}</h5>
-                    <h6 class="card-subtitle mb-2 text-muted">ISBN: {{item.isbn}}</h6>
-                    <p class="card-text">Sayfa: {{item.page}}</p>
-                    <p class="card-text">Dil: {{item.language}}</p>
-                    <p class="card-text">Stok Adedi: {{item.unitsInStock}}</p>
-                    <p class="card-text">Açıklama: {{item.description}}</p>
-                    <p class="card-text">Kategori: {{item.categoryName}}</p>
-                    <p class="card-text">Yayın Evi: {{item.publisherName}}</p>
-                    <p class="card-text">Yazar: {{item.authorName}}</p>
-                    <button type="button" class="btn btn-outline-danger" *ngIf="authService.loggedInMember!=null" (click)="onSelectBook(item)">Ödünç Al</button>
-                </div>
+     </div>
+     </div>
+     </div>
+  <div class="row mt-5">
+
+    <div class="col-md-4 mb-3" *ngFor="let item of bookList | filterlist:searchKey | paginate : {itemsPerPage: tableSize, currentPage: page, totalItems: count}; let i = index">
+
+      <div class="prd-main-wrapper">
+         <div></div>
+          <div class=" prd-wrapper">
+            <div class="product-img" >
+              <img src="/assets/img/arkaplan.jpg" alt="" width="350px" height="300px">
             </div>
-        </div>
-    </div>
-    <pagination-controls previousLabel="Prev" nextLabel="Next" (pageChange)="onTableDataChange($event)"></pagination-controls>
+          </div>
+            
+               <div class="prd-content">
+                <div class="prd-card-wrapper" >
+                  <div class="prd-infos">
+                  <h5 class="card-title">{{item.name}}</h5>
+                  <p class="card-text">Yazar: {{item.authorName}}</p>
+                </div>
+                </div>
+                <div class="prd-info-wrapper">
+                 <div class="prdm">
+                  <a>Kategori: {{item.categoryName}}</a> 
+                  <p>Yayınevi: {{item.publisherName}}</p>
+                </div>
+                 </div>
+
+                <div>
+                  <div class="prd-buttons w-100"><button type="button" class="btn btn-outline-danger w-50" *ngIf="authService.loggedInMember!=null" (click)="onSelectBook(item)">Ödünç Al</button> 
+                  </div>
+              </div>
+            </div>
+               </div>
+      
+      </div>
+      
   </div>
+  <pagination-controls previousLabel="Prev" nextLabel="Next" (pageChange)="onTableDataChange($event)"></pagination-controls>
+</div>
+
+
+
+

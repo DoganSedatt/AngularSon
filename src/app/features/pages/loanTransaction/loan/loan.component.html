@@ -5,21 +5,13 @@
       <div class="col-md-6 offset-md-3">
           <div class="card">
               <div class="card-body">
-                <h5 class="card-title">Ödünç Alacak Kişi:{{authService.loggedInMember?.firstName?.toUpperCase()}}</h5>
+                <h5 class="card-title">Ödünç Alacak Kişi:{{authService.loggedInMember?.firstName?.toUpperCase()}} {{authService.loggedInMember?.lastName?.toUpperCase()}}</h5>
                   <h5 class="card-title">Ödünç Alınacak Kitap:{{ bookService.selectedBook.name }}</h5>
                   
 
                   <form [formGroup]="loanForm">
 
-                    <div class="mb-3">
-                      <label for="bookId">Ödünç Alınacak Kitap:</label>
-                      <input type="text" class="form-control" id="bookId" formControlName="bookId" [value]="bookService.selectedBook.name" readonly required>
-                  </div>
-                  
-                      <div class="mb-3">
-                          <label for="memberId">Ödünç Alacak:</label>
-                          <input type="text" class="form-control" id="memberId" formControlName="memberId" [value]="authService.loggedInMember?.firstName" readonly required>
-                      </div>
+                    
 
                       <div class="fmb-3" hidden>
                         <label for="returnStatus">Ödünç Durumu:</label>

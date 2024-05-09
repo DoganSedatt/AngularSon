@@ -1,5 +1,8 @@
 <div class="col-8 animate__animated animate__fadeInTopLeft">Loan
    
- <p>{{findLoanIdArray}}</p>
-
+ <div *ngFor="let item of myResponseBorrowed">
+    <p>{{item|json}}
+   <button type="button">İade Et</button>
+   </p>
+ </div>
 </div>

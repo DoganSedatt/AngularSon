@@ -5,38 +5,48 @@ import { LoanTransaction } from '../../../../models/loanTransaction';
 import { Response } from '../../../../models/response';
 import { LoanGetById } from '../../../../models/LoanGetById';
 import { ResponseModel } from '../../../../models/responseModel';
+import { CommonModule } from '@angular/common';
+import { Book } from '../../../../models/book';
+import { BookService } from '../../../../services/book.service';
+import { MemberService } from '../../../../services/member.service';
 
 @Component({
   selector: 'app-loan-history',
   standalone: true,
-  imports: [],
+  imports: [CommonModule],
   templateUrl: './loan-history.component.html',
   styleUrl: './loan-history.component.scss'
 })
 export class LoanHistoryComponent implements OnInit {
-  constructor(private loanTrans: LoanTransactionService,
-    private authService: AuthService) { }
+  constructor(private loanService: LoanTransactionService,
+    private authService: AuthService,
+    private memberService: MemberService,
+    private bookService: BookService) { }
 
   memberId = this.authService.loggedInMember?.id;
-  loanHistory: LoanTransaction[] = [];
   loanList: LoanTransaction[] = [];
   findLoanId!: string;
   findLoanIdArray: string[] = [];
+  myResponse:any[]=[];
+  myResponseBorrowed:any[]=[];
+  member!:string[];
+  book!:string[];
 
   ngOnInit(): void {
 
     this.getLoans();
-
+    
   }
 
   getById(loanId: string) {
     if (this.memberId !== undefined) {
-      this.loanTrans.getById(loanId).subscribe({
+      this.loanService.getById(loanId).subscribe({
         next: (response: Response<LoanGetById>) => {
           console.log("Gelen ödünç cevabı:", response);
-          this.loanHistory = response.items;
-
-          console.log("LoanHistory:", this.loanHistory);
+          this.myResponse.push(response);
+          
+          console.log("MyResponse:",this.myResponse)
+          
         },
         error: (error) => {
           console.log('backendden hatalı cevap geldi.', error);
@@ -48,13 +58,17 @@ export class LoanHistoryComponent implements OnInit {
       });
     }
   }
+
   getLoans() {
-    this.loanTrans.getAll().subscribe({
+    this.loanService.getAll().subscribe({
       next: (response: ResponseModel<LoanTransaction>) => {
         console.log('backendden cevap geldi:', response);
         this.loanList = response.items;
-        console.log("getLoans içindeki findMember:", this.findMember());
-        console.log("getLoans içindeki procces:", this.processAllLoanIds());
+        
+        console.log("GetLoans List:",this.loanList);
+        this.findMember();
+        this.filterLoansForMember();
+        
       },
       error: (error) => {
         console.log('backendden hatalı cevap geldi.', error);
@@ -65,22 +79,32 @@ export class LoanHistoryComponent implements OnInit {
     });
 
   }
+  
+
   findMember() {
     this.loanList.forEach((loan: LoanTransaction) => {
       if (loan.memberId == this.authService.loggedInMember?.id) {
         this.findLoanId = loan.id;
         this.findLoanIdArray.push(this.findLoanId);
-        console.log("Bulunan loan Id'ler:", this.findLoanId);
       }
-
     })
     console.log("Bulunan LoanID Dizisi:", this.findLoanIdArray);
     //İlgili memberin tüm loan işlemlerinin ID'sini bir dizi değişkeninde saklıyorum
   };
 
-  processAllLoanIds() {
-    this.findLoanIdArray.forEach((loanId: any) => {
-      this.getById(loanId); // Her bir loanId için getById metodunu çağır
-    });
-  }
+  filterLoansForMember() {
+    for (let loan of this.loanList) {
+      if (loan.memberId === this.memberId) {
+        this.myResponse.push(loan);
+        
+        if(loan.returnStatus==3){
+          console.log("Status:",loan.returnStatus);//ReturnStatus'ü 3 olanları yani ödünç alınmışları console bastık
+          //Sonra bunları sayfada göster=>Kitapı iade edince returnStatus değişicek ve 3 olmayanlar artık gözükmeyecek
+          this.myResponseBorrowed.push(loan);
+        }
+      }
+    }}
+
+
+    
 }
