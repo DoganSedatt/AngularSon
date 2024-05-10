@@ -90,14 +90,25 @@ export class AddBookComponent implements OnInit{
 }
 
 
-addToDb():void{
-  if(this.bookAddForm.valid){
-    const formData:Book=this.bookAddForm.value;
+addToDb(): void {
+  if (this.bookAddForm.valid) {
+    const formData: Book = this.bookAddForm.value;
     console.log(formData.name);
-    this.bookService.add(formData).subscribe((response)=>{
-      console.log("response",response);
-      alert(formData.name.toUpperCase() +" başarıyla eklendi")
-    }
-  )}
+    this.bookService.add(formData).subscribe(
+      (response) => {
+        console.log("response", response);
+        alert(formData.name.toUpperCase() + " başarıyla eklendi");
+      },
+      (error) => {
+        if (error.status === 500) {
+          alert("Eklemeye çalıştığınız veri zaten mevcut!");
+        } else {
+          alert("Beklenmeyen bir hata oluştu, lütfen tekrar deneyin.");
+        }
+      }
+    );
+  } else {
+    alert("Lütfen geçerli bir kitap formu doldurun!");
+  }
 }
 }

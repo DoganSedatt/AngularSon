@@ -63,8 +63,6 @@ export const routes: Routes = [
     {path:'addcategory', component:CategoryAddComponent},
     {path:'editcategory', component:CategoryListComponent},
     {path:'editcategory/update/:id', component:CategoryUpdateComponent},
-    
-   
 
 
     ///PUBLISHER///PUBLISHER///PUBLISHER//PUBLISHER/////PUBLISHER////PUBLISHER/////PUBLISHER//

@@ -10,7 +10,6 @@ import { Response } from '../models/response';
 })
 export class AuthorService {
 
-  selectedAuthor:any;
   apiUrl="http://localhost:60805/api/Authors";
   constructor(private httpClient:HttpClient) { }
   

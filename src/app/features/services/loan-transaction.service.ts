@@ -4,6 +4,7 @@ import { LoanTransaction } from '../models/loanTransaction';
 import { Observable } from 'rxjs';
 import { Response } from '../models/response';
 import { ResponseModel } from '../models/responseModel';
+import { ReturnLoanBook } from '../models/returnLoanBook';
 
 
 @Injectable({
@@ -19,6 +20,10 @@ export class LoanTransactionService {
       'Authorization': `Bearer ${token}`
     });
     return this.httpClient.post<LoanTransaction>(this.apiUrl,loanTransaction,{headers:headers})
+  }
+
+  bookReturn(loanTransaction:ReturnLoanBook):Observable<any>{
+    return this.httpClient.put<ReturnLoanBook>(this.apiUrl,loanTransaction)
   }
 
   getById(id:string):Observable<Response<LoanTransaction>>{

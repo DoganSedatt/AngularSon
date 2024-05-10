@@ -4,7 +4,7 @@ import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } 
 import { Category } from '../../../../models/Category';
 import { CategoryService } from '../../../../services/category.service';
 import { ResponseModel } from '../../../../models/responseModel';
-import { Router, RouterLink, RouterModule } from '@angular/router';
+import { RouterLink, RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-category-list',
@@ -19,7 +19,7 @@ export class CategoryListComponent implements OnInit {
   today: Date = new Date();
   searchKey : string = ' ';
 
-  constructor(private categoryService:CategoryService, private formBuilder: FormBuilder,private router:Router){}
+  constructor(private categoryService:CategoryService, private formBuilder: FormBuilder){}
 
   ngOnInit(): void {
    
@@ -62,11 +62,5 @@ export class CategoryListComponent implements OnInit {
         console.log(res+" silindi.");
       });
     }
-  }
-
-  onSelectCategory(category: Category) {
-    this.categoryService.selectedCategory = category; // Seçilen kategoryi sakla
-    this.router.navigate(['admin/editcategory/update/:id']); 
-    console.log("OnSelectedCategory:",category);
   }
 }

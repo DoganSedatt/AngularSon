@@ -24,7 +24,7 @@ export class UpdateAuthorComponent {
   
   constructor(
     private formBuilder: FormBuilder,
-    public authorService: AuthorService,
+    private authorService: AuthorService,
    private activeRoute: ActivatedRoute,
     private route: Router) { }
 
@@ -54,14 +54,14 @@ export class UpdateAuthorComponent {
 
   updateAuthorAddForm(){
     this.authorUpdateForm= this.formBuilder.group({
-      id:[this.authorService.selectedAuthor.id],
+      id:[this.authorId],
       name:["",[Validators.required, Validators.minLength(2)]],
       identityNumber:["", (Validators.required)],
        biography:["", (Validators.required)],
       
     })}
 
-   
+  
   onNameChange(event:any){
     const selectedName = event.target.value;
      this.authorUpdateForm.patchValue({
@@ -82,19 +82,5 @@ export class UpdateAuthorComponent {
       );
     }
   }
-
-  onIdentityChange(event:any){
-    const selectedIdentity = event.target.value;
-     this.authorUpdateForm.patchValue({
-      identity: selectedIdentity
-     })
-   }
-   onBiographyChange(event:any){
-    const selectedbiography = event.target.value;
-     this.authorUpdateForm.patchValue({
-      biography: selectedbiography
-     })
-   }
-   
 
 }

@@ -19,9 +19,7 @@ export class UserAccountComponent {
   loggedInMember: Member []=[];
   memberId:any;
   
-
-
-  constructor(
+ constructor(
     private memberService: MemberService,
     public authService: AuthService,
     private activeRoute: ActivatedRoute
@@ -31,8 +29,6 @@ export class UserAccountComponent {
     this.getMember();
   }
 
-  
-  
   getMember(){
     this.memberId = this.activeRoute.snapshot.paramMap.get('id');
     this.memberService.getById(this.memberId).subscribe(response=>{

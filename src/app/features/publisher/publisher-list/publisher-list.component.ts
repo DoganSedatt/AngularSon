@@ -19,11 +19,7 @@ export class PublisherListComponent implements OnInit{
   ngOnInit(): void {
     this.getPublishers();
   }
-
-
-
   
-
   getPublishers(){
     this.publisherService.getAllPublisher().subscribe({
       next:(response:ResponseModel<Publisher>)=>{

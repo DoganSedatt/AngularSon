@@ -32,10 +32,21 @@ export class AddPublisherComponent {
     if(this.publisherAddForm.valid){
       const formData:Publisher=this.publisherAddForm.value;
       console.log(formData.name);
-      this.publisherService.add(formData).subscribe((response)=>{
-        alert(formData.name.toUpperCase()+" başarıyla eklendi");
-
-      })
+      this.publisherService.add(formData).subscribe(
+        (response) => {
+          console.log("response", response);
+          alert(formData.name.toUpperCase() + " başarıyla eklendi");
+        },
+        (error) => {
+          if (error.status === 500) {
+            alert("Eklemeye çalıştığınız veri zaten mevcut!");
+          } else {
+            alert("Beklenmeyen bir hata oluştu, lütfen tekrar deneyin.");
+          }
+        }
+      );
+    } else {
+      alert("Lütfen geçerli bir kitap formu doldurun!");
     }
   }
 

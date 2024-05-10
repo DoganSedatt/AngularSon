@@ -4,7 +4,7 @@ import { Publisher } from '../../../../models/publisher';
 import { ResponseModel } from '../../../../models/responseModel';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { Router, RouterLink } from '@angular/router';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-publisher-list',
@@ -14,9 +14,7 @@ import { Router, RouterLink } from '@angular/router';
   styleUrl: './publisher-list.component.scss'
 })
 export class PublisherListComponent implements OnInit{
-  constructor(private publisherService:PublisherService,
-    private router:Router,
-  ){ }
+  constructor(private publisherService:PublisherService){ }
   publisherList:Publisher[]=[];
   ngOnInit(): void {
     this.getPublishers();
@@ -48,11 +46,5 @@ export class PublisherListComponent implements OnInit{
         console.log(res+" silinidi");
       });
     }
-  }
-
-  onSelectPublisher(publisher: Publisher) {
-    this.publisherService.selectedPublisher = publisher; // Seçilen kitabı sakla
-    this.router.navigate(['admin/getPublisher/publisher/:id/publisherupdate']); 
-    console.log("OnSelectedPublisher:",publisher);
   }
 }

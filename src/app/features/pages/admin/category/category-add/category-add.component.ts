@@ -34,10 +34,21 @@ export class CategoryAddComponent {
      if(this.categoryAddForm.valid){
        const formData:Category=this.categoryAddForm.value;
        console.log(formData.categoryName);
-       this.categoryService.add(formData).subscribe((response)=>{
-         console.log("response",response);
-         alert(formData.categoryName.toUpperCase() +" başarıyla eklendi")
-       })
-     }
-   }
+       this.categoryService.add(formData).subscribe(
+        (response) => {
+          console.log("response", response);
+          alert(formData.categoryName.toUpperCase() + " başarıyla eklendi");
+        },
+        (error) => {
+          if (error.status === 500) {
+            alert("Eklemeye çalıştığınız veri zaten mevcut!");
+          } else {
+            alert("Beklenmeyen bir hata oluştu, lütfen tekrar deneyin.");
+          }
+        }
+      );
+    } else {
+      alert("Lütfen geçerli bir kitap formu doldurun!");
+    }
+  }
 }

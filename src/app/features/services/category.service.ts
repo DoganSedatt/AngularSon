@@ -12,7 +12,6 @@ export class CategoryService {
 
   constructor(private httpClient:HttpClient) { }
  
-  selectedCategory:any;
   apiUrl="http://localhost:60805/api/Categories";
 
   getAll():Observable<ResponseModel<Category>>{

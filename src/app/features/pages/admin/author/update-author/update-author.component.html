@@ -4,10 +4,10 @@
         <div class="card-header">Güncelleme</div>
         <div class="card-body">
             <form [formGroup]="authorUpdateForm">
-                <p>AuthorId= {{authorService.selectedAuthor.id}}</p>
+                <p>AuthorId= {{authorId}}</p>
                 <div class="mb-3">
                     <label>Yazar Adı:</label>
-                    <input type="text" placeholder={{authorService.selectedAuthor.name}} formControlName="name" (change)="onNameChange($event)" class="form-control" value=""/>
+                    <input type="text" placeholder="Yazar adı" formControlName="name" (change)="onNameChange($event)" class="form-control" value=""/>
                 </div>
                 
                 <small *ngIf="authorUpdateForm.get('name')?.hasError('required') && authorUpdateForm.get('name')?.touched" class="form-text">
@@ -19,12 +19,12 @@
                 
                 <div class="mb-3">
                     <label>Kimlik:</label>
-                    <input type="text" placeholder={{authorService.selectedAuthor.identityNumber}} formControlName="identityNumber" class="form-control"/>
+                    <input type="text" placeholder="identity" formControlName="identityNumber" class="form-control"/>
                 </div>
            
                 <div class="mb-3">
                     <label>Biyografi:</label>
-                    <textarea  placeholder={{authorService.selectedAuthor.biography}} formControlName="biography" class="form-control" style="height: 100px;"></textarea>
+                    <textarea  placeholder="biyografi" formControlName="biography" class="form-control" style="height: 100px;"></textarea>
                 </div>
                 
             </form>

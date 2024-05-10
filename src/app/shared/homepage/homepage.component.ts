@@ -7,6 +7,13 @@ import { CategoryListComponent } from "../../features/pages/admin/category/categ
 import { BookListComponent } from '../../features/pages/admin/book/book-list/book-list.component';
 import { LayoutComponent } from "../layout/layout.component";
 import { BookListForMembersComponent } from "../../features/pages/book/book-list-for-members/book-list-for-members.component";
+import { FooterComponent } from "../layout/footer/footer.component";
+import { Announcement } from '../../features/models/announcement';
+import { AnnouncementService } from '../../features/services/announcement.service';
+import { ResponseModel } from '../../features/models/responseModel';
+import { RouterLink } from '@angular/router';
+
+
 
 
 
@@ -15,9 +22,37 @@ import { BookListForMembersComponent } from "../../features/pages/book/book-list
     standalone: true,
     templateUrl: './homepage.component.html',
     styleUrl: './homepage.component.scss',
-    imports: [CommonModule, FormsModule, CategoryListComponent, BookListComponent, BookListForMembersComponent]
+    imports: [CommonModule, FormsModule,RouterLink, CategoryListComponent, BookListComponent, BookListForMembersComponent, FooterComponent]
 })
 export class HomepageComponent {
-    title = 'library';
-    image='assets/images/library_image.jpg';
+   
+announcementList: Announcement[]=[];
+
+constructor(private announcementService: AnnouncementService){}
+ngOnInit():void{
+this.getAnnouncement();
 }
+
+getAnnouncement(){
+    this.announcementService.getAll().subscribe({
+        next:(response:ResponseModel<Announcement>)=>{
+          console.log('backendden cevap geldi:',response);
+          this.announcementList = response.items;
+          console.log("AnnouncementList:",this.announcementList)
+          this.announcementList.forEach(announcement=>{
+            console.log(announcement.title);
+           
+          })
+        },
+        error : (error) =>{
+          console.log('backendden hatalı cevap geldi.',error);
+        },
+        complete: () =>{
+          console.log('backend isteği sonlandı.');
+        }
+      });
+    }
+}
+
+
+

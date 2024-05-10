@@ -21,7 +21,7 @@ export class CategoryUpdateComponent {
 
   constructor(
     private formBuilder: FormBuilder,
-    public categoryService: CategoryService,
+    private categoryService: CategoryService,
    private activeRoute: ActivatedRoute,
     private route: Router) { }
 
@@ -51,7 +51,7 @@ export class CategoryUpdateComponent {
 
   updateCategoryAddForm(){
     this.categoryUpdateForm= this.formBuilder.group({
-      id:[this.categoryService.selectedCategory.id],
+      id:[this.categoryId],
       categoryName:["",[Validators.required, Validators.minLength(2)]],
       
     })}
@@ -60,7 +60,7 @@ export class CategoryUpdateComponent {
   onNameChange(event:any){
     const selectedName = event.target.value;
      this.categoryUpdateForm.patchValue({
-      categoryName: selectedName
+      name: selectedName
      })
    }
 

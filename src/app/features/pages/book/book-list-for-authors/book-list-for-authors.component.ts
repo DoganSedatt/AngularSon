@@ -15,7 +15,6 @@ import { AuthorService } from '../../../services/author.service';
 import { ResponseModel } from '../../../models/responseModel';
 import { Book } from '../../../models/book';
 import { NgxPaginationModule } from 'ngx-pagination';
-import { AuthService } from '../../../../core/services/Auth.service';
 
 @Component({
   selector: 'app-book-list-for-authors',
@@ -43,8 +42,7 @@ export class BookListForAuthorsComponent {
     private publisherService:PublisherService,
     private authorService:AuthorService,
     private activatedRoute:ActivatedRoute,
-  private router:Router,
-  public authService:AuthService){}
+  private router:Router){}
   ngOnInit(): void {
     this.activatedRoute.params.subscribe(params=>{
       if(params["categoryId"]){
@@ -53,13 +51,14 @@ export class BookListForAuthorsComponent {
         else if(params["authorId"]){
           this.getBooksByAuthorId(params['authorId']);
         }
-        else{
+        else{ 
+          this.getAuthors();
           this.getCategories();
           this.getPublishers();
-          
-          this.getAuthors();
+          this.getBooks(); 
           this.postList();
-          this.getBooks();
+         
+
         }
     })
     
@@ -151,7 +150,7 @@ export class BookListForAuthorsComponent {
     }
   }
 
-  getBooksByCategoryId(categoryId:number){
+   getBooksByCategoryId(categoryId:number){
     this.bookService.getBooksByCategoryId(categoryId).subscribe((response)=>
     {
       this.bookList = response.items;
@@ -160,8 +159,8 @@ export class BookListForAuthorsComponent {
       console.log(error)
     }
   )
-}
-getBooksByAuthorId(authorId:number){
+} 
+ getBooksByAuthorId(authorId:number){
   this.bookService.getBooksByAuthorId(authorId).subscribe((response)=>
   {
     this.bookList = response.items;
@@ -170,7 +169,7 @@ getBooksByAuthorId(authorId:number){
     console.log(error)
   }
 )
- }
+ } 
  postList(): void {
   this.bookService.getAll().subscribe(response => {
     if (response && response.items) {

@@ -36,6 +36,7 @@
                background-image: linear-gradient(transparent, rgb(139, 75, 75));
                color: rgb(244, 225, 225);
                border:none;
+               
               }
              a:hover{
                         background: linear-gradient(to bottom, rgb(193, 123, 123), rgb(116, 27, 27));
@@ -69,6 +70,52 @@
               } 
           } 
 
+          .ikinci{
+          
+            justify-content: start;
+            display: flex;
+            align-items: center;
+              
+             .first{
+                width: 180px;
+               padding: 20px 0;
+               background-image: linear-gradient(transparent, rgb(139, 75, 75));
+               color: rgb(244, 225, 225);
+               border:none;
+              }
+             a:hover{
+                        background: linear-gradient(to bottom, rgb(193, 123, 123), rgb(116, 27, 27));
+                        box-shadow: 0px 3px 20px 0px block; color:white;
+                         } 
+
+           
+              
+              
+              
+              .nav-link{
+                padding: 6px;
+
+
+              }
+             
+              .fd{
+                
+                width: 48%;
+                a:hover{
+                    background: linear-gradient(to bottom, rgb(193, 123, 123), rgb(116, 27, 27));
+                    box-shadow: 0px 3px 20px 0px block; 
+                    color:white;
+                }
+               /*  li{
+                  /* 
+                    a{
+                    border-bottom: 1px solid black;
+                    } */
+                
+              } 
+
+          }
+
          .collapse{
            justify-content: end;
          }   
@@ -100,6 +147,7 @@
         border:none;
         color:black;
     }
+    
     
         
     }
