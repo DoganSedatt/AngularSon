@@ -35,9 +35,10 @@
                 </div>
                  <p class="card-text"> <span>Kategori:</span>  {{item.categoryName}}</p>
                   <p class="card-text"><span>Yayınevi:</span>  {{item.publisherName}}</p>
+                  <div class="aciklama">
                   <p class="card-text"> <span>Açıklama:</span> {{item.description}}</p>
-                 
-</div>
+                </div>
+               </div>
             </div>
                  <div>
                   <div class="prd-buttons w-100"><button type="button" class="btn btn-outline-danger w-50" *ngIf="authService.loggedInMember!=null" (click)="onSelectBook(item)">Ödünç Al</button> 
@@ -49,5 +50,3 @@
   </div>
   <pagination-controls previousLabel="Önceki" nextLabel="Sonraki" class="pagination-spreads" (pageChange)="onTableDataChange($event)"></pagination-controls>
 </div>
-
-

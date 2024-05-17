@@ -3,7 +3,6 @@
 <div class="animate__animated  animate__slideInRight">
 	<div class="main mt-5">  	
 		<input type="checkbox" id="chk" aria-hidden="true">
-
 			<div class="login">
 				<form [formGroup]="loginForm">
 					<label for="chk" aria-hidden="true"><img src="/assets/img/userm.png" width="50px;" alt=""></label>
@@ -12,7 +11,6 @@
             <input formControlName="email" type="email" class="form-control height-4 px-4 "  placeholder="account@account.com">
             <myinput-errors class="aaa" fieldName="email" /> 
             </div>
-            
             <h5  class="pb-2">Şifre:</h5>
             <div class="password-container">
             <input formControlName="password" [type]="passwordsignInHidden ? 'password' : 'text'" class="form-control" placeholder="******">

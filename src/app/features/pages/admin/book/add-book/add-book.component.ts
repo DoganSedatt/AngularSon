@@ -110,5 +110,4 @@ addToDb(): void {
   } else {
     alert("Lütfen geçerli bir kitap formu doldurun!");
   }
-}
-}
+}}

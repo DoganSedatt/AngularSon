@@ -26,7 +26,7 @@ export class BookService {
   }
 
   getById(id:number):Observable<Response<Book>>{
-    return this.httpClient.get<Response<Book>>('http://localhost:60805/api/Books/'+id)
+    return this.httpClient.get<Response<Book>>(this.apiUrl+'/'+id)
   }
   
   add(book:Book):Observable<Book>{
@@ -45,7 +45,7 @@ export class BookService {
     return this.httpClient.put<any>(this.apiUrl,book,{headers:headers})
   }
   deleteBook(bookId:number){
-    return this.httpClient.delete('http://localhost:60805/api/Books/'+bookId);
+    return this.httpClient.delete(this.apiUrl+'/'+bookId);
   }
   getBooksByCategoryId(categoryId:number):Observable<Response<Book>>{
     const token = localStorage.getItem('Token'); 

@@ -12,16 +12,17 @@ export class CategoryService {
 
   constructor(private httpClient:HttpClient) { }
  
+  selectedCategory:any;
   apiUrl="http://localhost:60805/api/Categories";
 
   getAll():Observable<ResponseModel<Category>>{
       return this.httpClient.get<ResponseModel<Category>>(
-        'http://localhost:60805/api/Categories?PageIndex=0&PageSize=100'
+        this.apiUrl+'?PageIndex=0&PageSize=100'
       );
   }
 
   getById(id:number):Observable<Response<Category>>{
-    return this.httpClient.get<Response<Category>>('http://localhost:60805/api/Categories/'+id)
+    return this.httpClient.get<Response<Category>>(this.apiUrl+'/'+id)
   }
 
   add(category:Category):Observable<any>{
@@ -40,6 +41,6 @@ export class CategoryService {
   }
 
   deleteCategory(categoryId:number){
-    return this.httpClient.delete('http://localhost:60805/api/Categories/'+categoryId);
+    return this.httpClient.delete(this.apiUrl+categoryId);
   }
 }

@@ -2,6 +2,7 @@ export interface LoanTransaction {
     id: string;
     memberId: string;
     bookId: string;
+    bookName:string;
     returnStatus: ReturnStatus;
     returnTime: Date;
     

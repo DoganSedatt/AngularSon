@@ -47,7 +47,6 @@ export class AddPublisherComponent {
       );
     } else {
       alert("Lütfen geçerli bir kitap formu doldurun!");
-    }
   }
-
+  }
 }

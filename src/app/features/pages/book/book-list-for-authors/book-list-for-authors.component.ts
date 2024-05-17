@@ -15,6 +15,7 @@ import { AuthorService } from '../../../services/author.service';
 import { ResponseModel } from '../../../models/responseModel';
 import { Book } from '../../../models/book';
 import { NgxPaginationModule } from 'ngx-pagination';
+import { AuthService } from '../../../../core/services/Auth.service';
 
 @Component({
   selector: 'app-book-list-for-authors',
@@ -42,23 +43,24 @@ export class BookListForAuthorsComponent {
     private publisherService:PublisherService,
     private authorService:AuthorService,
     private activatedRoute:ActivatedRoute,
-  private router:Router){}
+  private router:Router,
+  public authService:AuthService){}
   ngOnInit(): void {
     this.activatedRoute.params.subscribe(params=>{
       if(params["categoryId"]){
         this.getBooksByCategoryId(params['categoryId']);
+        
         }
         else if(params["authorId"]){
           this.getBooksByAuthorId(params['authorId']);
         }
-        else{ 
-          this.getAuthors();
+        else{
           this.getCategories();
           this.getPublishers();
-          this.getBooks(); 
+          
+          this.getAuthors();
           this.postList();
-         
-
+          this.getBooks();
         }
     })
     
@@ -150,17 +152,18 @@ export class BookListForAuthorsComponent {
     }
   }
 
-   getBooksByCategoryId(categoryId:number){
+  getBooksByCategoryId(categoryId:number){
     this.bookService.getBooksByCategoryId(categoryId).subscribe((response)=>
     {
-      this.bookList = response.items;
+      this.bookList = response.items; 
+      
     },
     error=>{
       console.log(error)
     }
   )
-} 
- getBooksByAuthorId(authorId:number){
+}
+getBooksByAuthorId(authorId:number){
   this.bookService.getBooksByAuthorId(authorId).subscribe((response)=>
   {
     this.bookList = response.items;
@@ -169,7 +172,7 @@ export class BookListForAuthorsComponent {
     console.log(error)
   }
 )
- } 
+ }
  postList(): void {
   this.bookService.getAll().subscribe(response => {
     if (response && response.items) {

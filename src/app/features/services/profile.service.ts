@@ -9,7 +9,6 @@ import { Member } from '../models/member';
 export class ProfileService {
 
   constructor(private httpClient:HttpClient) { }
-  
   apiUrl:string = "http://localhost:60805/api/Members";
   editMemberProfile(member:Member):Observable<any>{
     return this.httpClient.put<any>(this.apiUrl,member)

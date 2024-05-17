@@ -7,10 +7,7 @@
         <div class="card-header">Kullanıcı Bilgilerini Güncelle</div>
         <div class="card-body">
             <form [formGroup]="memberUpdateForm">
-                <div class="mb-3">
-                    <label>ID: </label>
-                    <input type="text" placeholder="ID" formControlName="id" class="form-control" value="{{authService.loggedInMember?.id}}" readonly/>
-                </div>
+                
 
                <div class="mb-3">
                     <label>Kullanıcı Adı:</label>

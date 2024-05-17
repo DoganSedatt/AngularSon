@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Member } from '../../features/models/member';
+import { JWT_ROLES } from '../constants/jwtAttributes';
 import { TokenService } from './token.service';
 
 @Injectable({

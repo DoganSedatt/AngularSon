@@ -50,5 +50,5 @@ export class CategoryAddComponent {
     } else {
       alert("Lütfen geçerli bir kitap formu doldurun!");
     }
-  }
+   }
 }

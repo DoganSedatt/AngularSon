@@ -77,7 +77,7 @@ export class LoginComponent implements OnInit {
     let gelenToken = jwtDecode<any>(this.currentToken);
     this.userMail = gelenToken[JWT_MAIL];
     console.log("userMail:", this.userMail);
-    console.log("Mailler:", this.emailList);
+    
 
     if (this.memberList.length > 0) {
       for (let i = 0; i < this.emailList.length; i++) {
@@ -88,7 +88,7 @@ export class LoginComponent implements OnInit {
       }
 
       if (this.userMailFound) {
-        console.log("userMail, emailList içinde bulunuyor.");
+        console.log("userMail, emailList içinde bulunuyor.",this.userMailFound);
         for (let i = 0; i < this.memberList.length; i++) {
           if (this.memberList[i].email == this.userMail) {
             console.log("Şu an sistemde giriş yapmış kullanıcı:", this.userMail);
@@ -97,7 +97,8 @@ export class LoginComponent implements OnInit {
           }
         }
       } else {
-        console.log("userMail, emailList içinde bulunmuyor.");
+        console.log("userMail, emailList içinde bulunmuyor.",this.userMailFound);
+        
       }
     } else {
       console.log("Üye listesi henüz yüklenmedi.");

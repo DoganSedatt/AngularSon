@@ -53,4 +53,7 @@ export class AddAuthorComponent {
       alert("Lütfen geçerli bir kitap formu doldurun!");
     }
   }
-}
+     }
+   
+
+

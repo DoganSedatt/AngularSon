@@ -32,7 +32,6 @@ export class LoanComponent implements OnInit {
       returnStatus:[3], 
       returnTime:['',Validators.required]
     })}
-
     addToDb():void{
       if(this.loanForm.valid){
         const formData:LoanTransaction=this.loanForm.value;
@@ -42,7 +41,4 @@ export class LoanComponent implements OnInit {
         }
       )}
     }
-
-
-  
   }

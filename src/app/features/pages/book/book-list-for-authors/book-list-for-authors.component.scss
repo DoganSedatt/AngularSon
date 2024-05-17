@@ -72,6 +72,17 @@ body{
           margin-bottom: 10px;
           margin-left: 40px;
           width: 300px;
+          .aciklama{
+          
+            .card-text{
+              overflow: scroll;
+              height: 150px;
+              text-align: left;
+              width: 320px;
+              
+            }
+           
+            }
  }
       }
       .prd-info-wrapper{
@@ -102,7 +113,7 @@ body{
      .prd-buttons{
       padding: 5px 10px;
    position: absolute;
-      top: 420px;
+      top: 430px;
       left: 180px;
    
      
@@ -173,4 +184,3 @@ pagination-controls{
  
   
   
-

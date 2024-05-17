@@ -1,9 +1,9 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Announcement } from '../models/announcement';
 import { Observable } from 'rxjs';
 import { ResponseModel } from '../models/responseModel';
 import { Response } from '../models/response';
+import { Announcement } from '../models/Announcement';
 
 @Injectable({
   providedIn: 'root'
@@ -11,17 +11,17 @@ import { Response } from '../models/response';
 export class AnnouncementService {
 
   constructor(private httpClient:HttpClient) { }
- 
+
   apiUrl="http://localhost:60805/api/Announcements";
 
   getAll():Observable<ResponseModel<Announcement>>{
       return this.httpClient.get<ResponseModel<Announcement>>(
-        'http://localhost:60805/api/Announcements?PageIndex=0&PageSize=100'
+        this.apiUrl+'?PageIndex=0&PageSize=100'
       );
   }
 
   getById(id:number):Observable<Response<Announcement>>{
-    return this.httpClient.get<Response<Announcement>>('http://localhost:60805/api/Announcements/'+id)
+    return this.httpClient.get<Response<Announcement>>(this.apiUrl+'/'+id)
   }
 
   add(announcement:Announcement):Observable<any>{
@@ -40,7 +40,7 @@ export class AnnouncementService {
   }
 
   deleteAnnouncement(announcementId:number){
-    return this.httpClient.delete('http://localhost:60805/api/Announcements/'+announcementId);
+    return this.httpClient.delete(this.apiUrl+'/'+announcementId);
   }
 
 }

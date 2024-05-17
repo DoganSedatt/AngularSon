@@ -10,17 +10,18 @@ import { Response } from '../models/response';
 })
 export class AuthorService {
 
+  selectedAuthor:any;
   apiUrl="http://localhost:60805/api/Authors";
   constructor(private httpClient:HttpClient) { }
   
   getAllAuthors():Observable<ResponseModel<Author>>{
     return this.httpClient.get<ResponseModel<Author>>(
-      'http://localhost:60805/api/Authors?PageIndex=0&PageSize=100'
+      this.apiUrl+'?PageIndex=0&PageSize=100'
     );
 }
 
 getById(id:number):Observable<Response<Author>>{
-  return this.httpClient.get<Response<Author>>('http://localhost:60805/api/Authors/'+id);
+  return this.httpClient.get<Response<Author>>(this.apiUrl+'/'+id);
 }
 add(author:Author):Observable<any>{
   const token = localStorage.getItem('Token'); 
@@ -38,7 +39,7 @@ editAuthor(author:Author):Observable<any>{
 }
 
 deleteAuthor(authorId:number){
-  return this.httpClient.delete('http://localhost:60805/api/Authors/'+authorId);
+  return this.httpClient.delete(this.apiUrl+'/'+authorId);
 }
 
 }

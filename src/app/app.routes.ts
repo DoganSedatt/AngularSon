@@ -24,7 +24,8 @@ import { BookListForMembersComponent } from './features/pages/book/book-list-for
 import { BookListForAuthorsComponent } from './features/pages/book/book-list-for-authors/book-list-for-authors.component';
 import { BookListForIsbnComponent } from './features/pages/book/book-list-for-isbn/book-list-for-isbn.component';
 import { LoanComponent } from './features/pages/loanTransaction/loan/loan.component';
-import { LoanHistoryComponent } from './features/pages/user-account/loan-history/loan-history/loan-history.component';
+import { LoanHistoryComponent } from './features/pages/user-account/loan-history/loan-history.component';
+import { AboutUsComponent } from './features/pages/about-us/about-us.component';
 
 
 export const routes: Routes = [
@@ -39,6 +40,9 @@ export const routes: Routes = [
   {path:"books/author/:authorId",component:BookListForAuthorsComponent},
   {path:"getBooksForIsbnFilter",component:BookListForIsbnComponent},
   {path:'loanTransaction',component:LoanComponent},
+  {
+    path:'aboutus' ,component:AboutUsComponent
+  },
 
   
   
@@ -63,6 +67,8 @@ export const routes: Routes = [
     {path:'addcategory', component:CategoryAddComponent},
     {path:'editcategory', component:CategoryListComponent},
     {path:'editcategory/update/:id', component:CategoryUpdateComponent},
+    
+   
 
 
     ///PUBLISHER///PUBLISHER///PUBLISHER//PUBLISHER/////PUBLISHER////PUBLISHER/////PUBLISHER//

@@ -56,7 +56,6 @@ export const authGuard: CanActivateFn = (route, state) => {
         alert("Giriş lazım")
         router.navigateByUrl("/login");
       }
-
     });
   }
 

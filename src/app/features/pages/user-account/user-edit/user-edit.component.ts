@@ -1,10 +1,10 @@
-import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, ReactiveFormsModule } from '@angular/forms';
 import { RouterLink, RouterModule } from '@angular/router';
 import { AuthService } from '../../../../core/services/Auth.service';
-import { ProfileService } from '../../../services/profile.service';
 import { Member } from '../../../models/member';
+import { ProfileService } from '../../../services/profile.service';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-user-edit',
@@ -14,7 +14,6 @@ import { Member } from '../../../models/member';
   styleUrl: './user-edit.component.scss'
 })
 export class UserEditComponent {
-  
   ngOnInit(): void {
     this.editMemberUpdateForm();
   }
@@ -43,5 +42,4 @@ export class UserEditComponent {
         );
       }
     }
-
 }

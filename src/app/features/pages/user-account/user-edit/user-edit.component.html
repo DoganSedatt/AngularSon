@@ -1,9 +1,7 @@
 <div class="col-8 animate__animated animate__fadeInTopLeft">
+
   <form [formGroup]="memberUpdateForm">
-    <div class="mb-3">
-        <label>ID: </label>
-        <input type="text" placeholder="ID" formControlName="id" class="form-control" value="{{authService.loggedInMember?.id}}" readonly/>
-    </div>
+    
 
    <div class="mb-3">
         <label>Kullanıcı Adı:</label>
@@ -26,4 +24,3 @@
 <button type="button" class="btn btn-outline-dark" (click)="updateToDb()">Güncelle</button>
 
     </div>
-    

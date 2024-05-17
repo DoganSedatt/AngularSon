@@ -71,7 +71,17 @@ body{
           text-overflow: ellipsis;
           margin-bottom: 10px;
           margin-left: 40px;
-          width: 300px;
+         // width: 300px;
+          .aciklama{
+        
+          .card-text{
+            overflow: scroll;
+            height: 150px;
+            text-align: left;
+            width: 320px;
+          }
+         
+          }
  }
       }
       .prd-info-wrapper{
@@ -170,3 +180,5 @@ pagination-controls{
    background-color: rgb(200, 193, 193);
    color:black
   } 
+
+  

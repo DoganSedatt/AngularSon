@@ -10,23 +10,23 @@ import { SingleResponseModel } from '../models/singleResponseModel';
   providedIn: 'root'
 })
 export class PublisherService {
-
+  selectedPublisher:any;
   constructor(private httpClient: HttpClient) { }
-
+ apiUrl="http://localhost:60805/api/Publishers";
   getAllPublisher(): Observable<ResponseModel<Publisher>> {
     return this.httpClient.get<ResponseModel<Publisher>>(
-      'http://localhost:60805/api/Publishers?PageIndex=0&PageSize=10'
+      this.apiUrl+'?PageIndex=0&PageSize=30'
     );
   }
   getById(id: number): Observable<ResponseModel<Publisher>> {
-    return this.httpClient.get<ResponseModel<Publisher>>('http://localhost:60805/api/Publishers/' + id)
+    return this.httpClient.get<ResponseModel<Publisher>>(this.apiUrl +'/'+ id)
   }
   add(publisher: Publisher): Observable<any> {
     const token = localStorage.getItem('Token');
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${token}`
     });
-    return this.httpClient.post<any>('http://localhost:60805/api/Publishers?PageIndex=0&PageSize=10', publisher, { headers: headers })
+    return this.httpClient.post<any>(this.apiUrl, publisher, { headers: headers })
   }
 
   editPublisher(publisher: Publisher): Observable<any> {
@@ -34,11 +34,11 @@ export class PublisherService {
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${token}`
     });
-    return this.httpClient.put<any>('http://localhost:60805/api/Publishers', publisher, { headers: headers })
+    return this.httpClient.put<any>(this.apiUrl, publisher, { headers: headers })
   }
 
 
   deletePublisher(publisherId: number) {
-    return this.httpClient.delete('http://localhost:60805/api/Publishers/' + publisherId);
+    return this.httpClient.delete(this.apiUrl + publisherId);
   }
 }

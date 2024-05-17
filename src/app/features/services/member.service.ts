@@ -20,7 +20,7 @@ export class MemberService {
     );}
 
     getById(id:number):Observable<Response<Member>>{
-      return this.httpClient.get<Response<Member>>('http://localhost:60805/api/Members/'+id)
+      return this.httpClient.get<Response<Member>>(this.apiUrl+'/'+id)
     }
 
     
