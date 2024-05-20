@@ -11,7 +11,7 @@ import { ReturnLoanBook } from '../models/returnLoanBook';
   providedIn: 'root'
 })
 export class LoanTransactionService {
-  apiUrl="http://localhost:60805/api/LoanTransactions";
+  apiUrl="http://localhost:60805/api/LoanTransactions/";
   constructor(private httpClient:HttpClient) { }
 
   borrowed(loanTransaction:LoanTransaction):Observable<LoanTransaction>{
@@ -23,7 +23,7 @@ export class LoanTransactionService {
   }
 
   getById(id:string):Observable<Response<LoanTransaction>>{
-    return this.httpClient.get<Response<LoanTransaction>>(this.apiUrl+'/'+id)
+    return this.httpClient.get<Response<LoanTransaction>>(this.apiUrl+id)
   }
 
   getAll():Observable<ResponseModel<LoanTransaction>>{

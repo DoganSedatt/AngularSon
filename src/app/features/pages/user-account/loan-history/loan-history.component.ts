@@ -36,6 +36,7 @@ export class LoanHistoryComponent implements OnInit {
   member!:string[];
   book!:string[];
   
+  
 
   ngOnInit(): void {
 
@@ -73,7 +74,6 @@ export class LoanHistoryComponent implements OnInit {
   }
 
   bookReturn(item: any): void {
-
     const formData: ReturnLoanBook = {
       id: item.id, 
       bookId: item.bookId, 
@@ -86,5 +86,26 @@ export class LoanHistoryComponent implements OnInit {
       this.myResponseBorrowed = this.myResponseBorrowed.filter(loan => loan.id !== item.id);
     });
   }
+  getReturnTimeMessage(returnTime:Date):string{
+    const currentTime=new Date().toLocaleString();
+    const myReturnTime=new Date(returnTime).toLocaleString();
+    console.log("Şimdiki zaman:",currentTime,"İade Tarihi:",myReturnTime);
+    if(currentTime>myReturnTime){
+      const message:string="İade süresi geçmiş"
+      return message;
+      
+    }
+    else if(currentTime<myReturnTime){
+      const message:string="İade süresi henüz dolmamış"
+      return message;
+    }
+    else {
+      const message:string="İade süresi bugün doluyor"
+      return message;
+    }
+   
+  }
+  
 }
+
     

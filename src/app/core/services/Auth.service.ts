@@ -30,8 +30,8 @@ export class AuthService {
     return JSON.parse(localStorage.getItem('isLoggedIn') || 'false' );
   }
 
- 
+  
+  }
 
-}
 
 
