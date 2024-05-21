@@ -17,6 +17,7 @@ import { AuthService } from '../../services/Auth.service';
 import { LayoutComponent } from "../../../shared/layout/layout.component";
 import { RegisterService } from '../../services/register.service';
 import { BaseInputErrorsComponent } from '../../components/base-input-errors/base-input-errors.component';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
     selector: 'app-login',
@@ -36,6 +37,7 @@ export class LoginComponent implements OnInit {
     private tokenService: TokenService,
     private memberService: MemberService,
     private authService:AuthService,
+    private toastr: ToastrService
  
   ) {}
 
@@ -66,7 +68,8 @@ export class LoginComponent implements OnInit {
     this.loginService.Login(email, password, authenticatorCode).subscribe((result: LoginResponse) => {
       result.email = email;
       localStorage.setItem('Token', result.accessToken.token);
-      alert(result.email + " kullanıcısı giriş yaptı")
+      this.toastr.success('Başarılı bir şekilde giriş yaptınız.');
+     // alert(result.email + " kullanıcısı giriş yaptı")
       this.onMemberLog();
       this.router.navigateByUrl('/homepage');
     });
@@ -77,7 +80,7 @@ export class LoginComponent implements OnInit {
     let gelenToken = jwtDecode<any>(this.currentToken);
     this.userMail = gelenToken[JWT_MAIL];
     console.log("userMail:", this.userMail);
-    
+    console.log("Mailler:", this.emailList);
 
     if (this.memberList.length > 0) {
       for (let i = 0; i < this.emailList.length; i++) {
@@ -88,7 +91,7 @@ export class LoginComponent implements OnInit {
       }
 
       if (this.userMailFound) {
-        console.log("userMail, emailList içinde bulunuyor.",this.userMailFound);
+        console.log("userMail, emailList içinde bulunuyor.");
         for (let i = 0; i < this.memberList.length; i++) {
           if (this.memberList[i].email == this.userMail) {
             console.log("Şu an sistemde giriş yapmış kullanıcı:", this.userMail);
@@ -97,8 +100,7 @@ export class LoginComponent implements OnInit {
           }
         }
       } else {
-        console.log("userMail, emailList içinde bulunmuyor.",this.userMailFound);
-        
+        console.log("userMail, emailList içinde bulunmuyor.");
       }
     } else {
       console.log("Üye listesi henüz yüklenmedi.");

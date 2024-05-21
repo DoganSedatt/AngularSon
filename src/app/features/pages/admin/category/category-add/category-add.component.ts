@@ -4,11 +4,13 @@ import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } 
 import { RouterModule } from '@angular/router';
 import { Category } from '../../../../models/Category';
 import { CategoryService } from '../../../../services/category.service';
+import { ToastrService } from 'ngx-toastr';
+import { BaseInputErrorsComponent } from '../../../../../core/components/base-input-errors/base-input-errors.component';
 
 @Component({
   selector: 'app-category-add',
   standalone: true,
-  imports: [CommonModule,RouterModule,FormsModule,ReactiveFormsModule],
+  imports: [CommonModule,RouterModule,FormsModule,ReactiveFormsModule,BaseInputErrorsComponent],
   templateUrl: './category-add.component.html',
   styleUrl: './category-add.component.scss'
 })
@@ -18,7 +20,8 @@ export class CategoryAddComponent {
 
  
   constructor(private formBuilder:FormBuilder,
-   private categoryService: CategoryService){}
+   private categoryService: CategoryService,
+   private toastr: ToastrService){}
  
    ngOnInit():void{
     this.createCategoryAddForm();
@@ -27,7 +30,7 @@ export class CategoryAddComponent {
 
    createCategoryAddForm(){
      this.categoryAddForm=this.formBuilder.group({
-       categoryName:["", (Validators.required, Validators.minLength(2))]
+       categoryName:["",[Validators.required, Validators.minLength(2)]],
      })
    }
    addToDb():void{
@@ -37,18 +40,18 @@ export class CategoryAddComponent {
        this.categoryService.add(formData).subscribe(
         (response) => {
           console.log("response", response);
-          alert(formData.categoryName.toUpperCase() + " başarıyla eklendi");
+          this.toastr.success(formData.categoryName.toUpperCase() + " başarıyla eklendi");
         },
         (error) => {
           if (error.status === 500) {
-            alert("Eklemeye çalıştığınız veri zaten mevcut!");
+            this.toastr.info("Eklemeye çalıştığınız veri zaten mevcut!");
           } else {
-            alert("Beklenmeyen bir hata oluştu, lütfen tekrar deneyin.");
+            this.toastr.error("Beklenmeyen bir hata oluştu, lütfen tekrar deneyin.");
           }
         }
       );
     } else {
-      alert("Lütfen geçerli bir kitap formu doldurun!");
+      this.toastr.info("Lütfen geçerli bir kitap formu doldurun!");
     }
    }
 }

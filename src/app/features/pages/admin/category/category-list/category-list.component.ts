@@ -55,7 +55,7 @@ export class CategoryListComponent implements OnInit {
   } */
 
   deleteCategory(event:any,categoryId:number){
-    if(confirm('Bu kitabı silmek istiyor musunuz ?')){
+    if(confirm('Bu kategoriyi silmek istiyor musunuz?')){
       event.target.innerText="Siliniyor...";
       this.categoryService.deleteCategory(categoryId).subscribe((res:any)=>{
         this.getCategories();
@@ -65,8 +65,8 @@ export class CategoryListComponent implements OnInit {
   }
 
   onSelectCategory(category: Category) {
-    this.categoryService.selectedCategory = category; // Seçilen kategoryi sakla
-    this.router.navigate(['admin/editcategory/update/:id']); 
+    this.categoryService.selectedCategory = category; // Seçilen kategoriyi sakla
+    this.router.navigate(['admin/editCategory/update/:id']); 
     console.log("OnSelectedCategory:",category);
   }
 }

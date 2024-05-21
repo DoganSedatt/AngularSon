@@ -6,7 +6,7 @@
    
  }
  
- .container{
+ .content{
    
  
    border-radius: 20px;
@@ -18,7 +18,6 @@
      border: 2px solid black;
      border-radius: 20px;
     padding:10px;
-    box-shadow: 10px 10px 20px grey;
    
      .card-header{
          text-align: center;
@@ -35,11 +34,16 @@
  
      } 
      .card-body{
-        text-decoration: underline rgb(199, 158, 158);
+        
+ 
+         label{
+             font-size: bold;
+             
+             text-decoration: underline rgb(199, 158, 158);
              font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
              font-size: larger;
- 
-       
+             
+         }
          select{
              border: 1px solid black;
              width: 150px;
@@ -56,12 +60,6 @@
  
             
          }
-
-        
-            .btn{
-                margin-left: 120px;
-            }
-        
  
          input:focus{
              border-color: #502f32 ;
@@ -96,8 +94,6 @@
      }
      }
      
-     //background-image: linear-gradient( transparent, black);
+     background-image: linear-gradient( transparent, black);
    }
-
-   
  

@@ -4,11 +4,13 @@ import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } 
 import { PublisherService } from '../../../../services/publisher.service'; 
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { ToastrService } from 'ngx-toastr';
+import { BaseInputErrorsComponent } from '../../../../../core/components/base-input-errors/base-input-errors.component';
 
 @Component({
   selector: 'app-add-publisher',
   standalone: true,
-  imports: [CommonModule,RouterModule,FormsModule,ReactiveFormsModule],
+  imports: [CommonModule,RouterModule,FormsModule,ReactiveFormsModule, BaseInputErrorsComponent],
   templateUrl: './addpublisher.component.html',
   styleUrl: './addpublisher.component.scss'
 })
@@ -17,7 +19,8 @@ export class AddPublisherComponent {
  publisher:Publisher[]=[];
 
  constructor(private formBuilder:FormBuilder,
-  private publisherService: PublisherService){}
+  private publisherService: PublisherService,
+  private toastr:ToastrService){}
 
   ngOnInit():void{
    this.createPublisherAddForm();
@@ -25,7 +28,7 @@ export class AddPublisherComponent {
   }
   createPublisherAddForm(){
     this.publisherAddForm=this.formBuilder.group({
-      name:["", (Validators.required, Validators.minLength(2))]
+      name:["",[Validators.required, Validators.minLength(2)]],
     })
   }
   addToDb():void{
@@ -35,18 +38,18 @@ export class AddPublisherComponent {
       this.publisherService.add(formData).subscribe(
         (response) => {
           console.log("response", response);
-          alert(formData.name.toUpperCase() + " başarıyla eklendi");
+          this.toastr.success(formData.name.toUpperCase() + " başarıyla eklendi");
         },
         (error) => {
           if (error.status === 500) {
-            alert("Eklemeye çalıştığınız veri zaten mevcut!");
+            this.toastr.info("Eklemeye çalıştığınız veri zaten mevcut!");
           } else {
-            alert("Beklenmeyen bir hata oluştu, lütfen tekrar deneyin.");
+            this.toastr.error("Beklenmeyen bir hata oluştu, lütfen tekrar deneyin.");
           }
         }
       );
     } else {
-      alert("Lütfen geçerli bir kitap formu doldurun!");
+      this.toastr.info("Lütfen geçerli bir yayınevi formu doldurun!");
   }
   }
 }

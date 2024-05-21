@@ -5,11 +5,13 @@ import { Category } from '../../../../models/Category';
 import { CategoryService } from '../../../../services/category.service';
 import { CommonModule } from '@angular/common';
 import { Response } from '../../../../models/response';
+import { ToastrService } from 'ngx-toastr';
+import { BaseInputErrorsComponent } from '../../../../../core/components/base-input-errors/base-input-errors.component';
 
 @Component({
   selector: 'app-category-update',
   standalone: true,
-  imports: [CommonModule,FormsModule,ReactiveFormsModule,RouterModule],
+  imports: [CommonModule,FormsModule,ReactiveFormsModule,RouterModule, BaseInputErrorsComponent],
   templateUrl: './category-update.component.html',
   styleUrl: './category-update.component.scss'
 })
@@ -23,7 +25,8 @@ export class CategoryUpdateComponent {
     private formBuilder: FormBuilder,
     public categoryService: CategoryService,
    private activeRoute: ActivatedRoute,
-    private route: Router) { }
+    private route: Router,
+    private toastr: ToastrService) { }
 
 
   ngOnInit(): void {
@@ -72,7 +75,7 @@ export class CategoryUpdateComponent {
       console.log(formData.categoryName);
       this.categoryService.editCategory(formData).subscribe((response) => {
         console.log("response", response);
-        alert(formData.categoryName.toUpperCase() + " başarıyla güncellendi");
+        this.toastr.success(formData.categoryName.toUpperCase() + " başarıyla güncellendi");
       }
       );
     }

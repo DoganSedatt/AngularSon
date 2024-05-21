@@ -1,4 +1,6 @@
+
 <div class="col-8 animate__animated animate__fadeInTopLeft">
+  <div><p style="color: red;">Yaşanacak gecikme için gün başına 3 TL üyemizden alınacaktır!</p> </div>
   <div *ngIf="myResponseBorrowed.length == 0">
     <p>Ödünç alma geçmişi yok!</p>
   </div>
@@ -17,8 +19,14 @@
           <td>{{ item.bookName }}</td>
           <td>{{ item.returnTime.toLocaleString()}}</td>
           <td>{{ getReturnTimeMessage(item.returnTime) }}</td>
+          
           <td>
             <button type="button" (click)="bookReturn(item)">İade Et</button>
           </td>
+         
         </tr>
+        <div ><td>Ceza Tutarı:{{penalty}} TL</td>
+          <button type="button" *ngIf="penalty>0">Öde</button>
+        </div>
+        
      

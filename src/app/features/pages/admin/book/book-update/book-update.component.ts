@@ -16,12 +16,14 @@ import { Author } from '../../../../models/Author';
 import { AuthorService } from '../../../../services/author.service';
 import { BookListComponent } from '../book-list/book-list.component';
 import { SingleResponseModel } from '../../../../models/singleResponseModel';
+import { ToastrService } from 'ngx-toastr';
+import { BaseInputErrorsComponent } from '../../../../../core/components/base-input-errors/base-input-errors.component';
 
 
 @Component({
   selector: 'app-book-update',
   standalone: true,
-  imports: [CommonModule, FormsModule, ReactiveFormsModule, CategoryListComponent],
+  imports: [CommonModule, FormsModule, ReactiveFormsModule, CategoryListComponent, BaseInputErrorsComponent],
   templateUrl: './book-update.component.html',
   styleUrl: './book-update.component.scss'
 })
@@ -47,7 +49,8 @@ export class BookUpdateComponent implements OnInit {
     private publisherService: PublisherService,
     private authorService:AuthorService,
     private activeToute: ActivatedRoute,
-    private router:Router) { }
+    private router:Router,
+    private toastr: ToastrService) { }
 
 
   ngOnInit(): void {
@@ -173,7 +176,7 @@ export class BookUpdateComponent implements OnInit {
       console.log(formData.name);
       this.bookService.editBook(formData).subscribe((response) => {
         console.log("response", response);
-        alert(formData.name.toUpperCase() + " başarıyla güncellendi");
+        this.toastr.success(formData.name.toUpperCase() + " başarıyla güncellendi");
       }
       );
     }

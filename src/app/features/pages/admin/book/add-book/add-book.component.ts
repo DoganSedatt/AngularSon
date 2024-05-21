@@ -11,10 +11,12 @@ import { PublisherService } from '../../../../services/publisher.service';
 import { Book } from '../../../../models/book';
 import { AuthorService } from '../../../../services/author.service';
 import { Author } from '../../../../models/Author';
+import { ToastrService } from 'ngx-toastr';
+import { BaseInputErrorsComponent } from '../../../../../core/components/base-input-errors/base-input-errors.component';
 @Component({
   selector: 'app-add-book',
   standalone: true,
-  imports: [CommonModule,FormsModule,ReactiveFormsModule,CategoryListComponent],
+  imports: [CommonModule,FormsModule,ReactiveFormsModule,CategoryListComponent, BaseInputErrorsComponent],
   templateUrl: './add-book.component.html',
   styleUrl: './add-book.component.scss'
 })
@@ -27,7 +29,7 @@ export class AddBookComponent implements OnInit{
   publishers:Publisher[]=[];
   authors:Author[]=[];
   constructor(private formBuilder:FormBuilder,
-    private bookService:BookService,private categoryService:CategoryService,private publisherService:PublisherService,private authorService:AuthorService)
+    private bookService:BookService,private categoryService:CategoryService,private publisherService:PublisherService,private authorService:AuthorService, private toastr: ToastrService)
     {
      
     }
@@ -97,17 +99,17 @@ addToDb(): void {
     this.bookService.add(formData).subscribe(
       (response) => {
         console.log("response", response);
-        alert(formData.name.toUpperCase() + " başarıyla eklendi");
+        this.toastr.success(formData.name.toUpperCase() + " başarıyla eklendi");
       },
       (error) => {
         if (error.status === 500) {
-          alert("Eklemeye çalıştığınız veri zaten mevcut!");
+          this.toastr.info("Eklemeye çalıştığınız veri zaten mevcut!");
         } else {
-          alert("Beklenmeyen bir hata oluştu, lütfen tekrar deneyin.");
+          this.toastr.error("Beklenmeyen bir hata oluştu, lütfen tekrar deneyin.");
         }
       }
     );
   } else {
-    alert("Lütfen geçerli bir kitap formu doldurun!");
+    this.toastr.info("Lütfen geçerli bir kitap formu doldurun!");
   }
 }}

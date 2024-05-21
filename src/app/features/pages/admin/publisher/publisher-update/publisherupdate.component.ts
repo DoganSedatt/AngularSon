@@ -8,11 +8,13 @@ import { CommonModule } from '@angular/common';
 import { Response } from '../../../../models/response';
 import { SingleResponseModel } from '../../../../models/singleResponseModel';
 import { ResponseModel } from '../../../../models/responseModel';
+import { ToastrService } from 'ngx-toastr';
+import { BaseInputErrorsComponent } from '../../../../../core/components/base-input-errors/base-input-errors.component';
 
 @Component({
   selector: 'app-update-publisher',
   standalone: true,
-  imports: [CommonModule,FormsModule,ReactiveFormsModule,RouterModule],
+  imports: [CommonModule,FormsModule,ReactiveFormsModule,RouterModule,BaseInputErrorsComponent],
   templateUrl: './publisherupdate.component.html',
   styleUrl: './publisherupdate.component.scss'
 })
@@ -26,7 +28,8 @@ export class publisherUpdateComponent {
     private formBuilder: FormBuilder,
     public publisherService: PublisherService,
     private activeRoute: ActivatedRoute,
-    private route: Router) { }
+    private route: Router,
+    private toastr: ToastrService) { }
 
 
   ngOnInit(): void {
@@ -71,7 +74,7 @@ export class publisherUpdateComponent {
       console.log(formData.name);
       this.publisherService.editPublisher(formData).subscribe((response) => {
         console.log("response", response);
-        alert(formData.name.toUpperCase() + " başarıyla güncellendi");
+        this.toastr.success(formData.name.toUpperCase() + " başarıyla güncellendi");
       }
       );
     }

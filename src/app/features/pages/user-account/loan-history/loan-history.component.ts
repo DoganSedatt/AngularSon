@@ -35,8 +35,9 @@ export class LoanHistoryComponent implements OnInit {
   myResponseBorrowed:LoanTransaction[]=[];
   member!:string[];
   book!:string[];
-  
-  
+  daysDifference!:number;
+  daysDifferenceAbs!:number;
+  penalty!:number;
 
   ngOnInit(): void {
 
@@ -86,25 +87,28 @@ export class LoanHistoryComponent implements OnInit {
       this.myResponseBorrowed = this.myResponseBorrowed.filter(loan => loan.id !== item.id);
     });
   }
-  getReturnTimeMessage(returnTime:Date):string{
-    const currentTime=new Date().toLocaleString();
-    const myReturnTime=new Date(returnTime).toLocaleString();
-    console.log("Şimdiki zaman:",currentTime,"İade Tarihi:",myReturnTime);
-    if(currentTime>myReturnTime){
-      const message:string="İade süresi geçmiş"
+   getReturnTimeMessage(returnTime: Date): string {
+    const currentTime = new Date();
+    const myReturnTime = new Date(returnTime);
+  
+    console.log("Şimdiki zaman:", currentTime.toLocaleString(), "İade Tarihi:", myReturnTime.toLocaleString());
+  
+    const timeDifference = myReturnTime.getTime() - currentTime.getTime();
+    this.daysDifference = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
+    this.daysDifferenceAbs= Math.abs(this.daysDifference)
+    if (timeDifference < 0) {
+      const message: string = `İade süresi ${(this.daysDifferenceAbs)} gün geçti.`;
+      this.penalty=this.daysDifferenceAbs*3;
       return message;
-      
-    }
-    else if(currentTime<myReturnTime){
-      const message:string="İade süresi henüz dolmamış"
+    } else if (timeDifference >= 0) {
+      const message: string = `İade süresinin dolmasına ${this.daysDifferenceAbs} gün kaldı.`;
+      return message;
+    } else {
+      const message: string = "İade süresi bugün doluyor.";
       return message;
     }
-    else {
-      const message:string="İade süresi bugün doluyor"
-      return message;
-    }
-   
   }
+  
   
 }
 

@@ -26,6 +26,8 @@ import { BookListForIsbnComponent } from './features/pages/book/book-list-for-is
 import { LoanComponent } from './features/pages/loanTransaction/loan/loan.component';
 import { LoanHistoryComponent } from './features/pages/user-account/loan-history/loan-history.component';
 import { AboutUsComponent } from './features/pages/about-us/about-us.component';
+import { AddAnnouncementComponent } from './features/pages/admin/announcement/add-announcement/add-announcement.component';
+
 
 
 export const routes: Routes = [
@@ -64,9 +66,9 @@ export const routes: Routes = [
     {path:'getBooks/book-update',component:BookUpdateComponent},
     
     /////CATEGORY/////CATEGORY////CATEGORY/////CATEGORY//CATEGORY/////CATEGORY///
-    {path:'addcategory', component:CategoryAddComponent},
-    {path:'editcategory', component:CategoryListComponent},
-    {path:'editcategory/update/:id', component:CategoryUpdateComponent},
+    {path:'addCategory', component:CategoryAddComponent},
+    {path:'editCategory', component:CategoryListComponent},
+    {path:'editCategory/update/:id', component:CategoryUpdateComponent},
     
    
 
@@ -81,9 +83,13 @@ export const routes: Routes = [
 
 
     //Author
-    {path:'addauthor', component:AddAuthorComponent},
-    {path:'editauthor', component:EditAuthorComponent},
-    {path:'editauthor/update/:id', component:UpdateAuthorComponent},
+    {path:'addAuthor', component:AddAuthorComponent},
+    {path:'editAuthor', component:EditAuthorComponent},
+    {path:'editAuthor/update/:id', component:UpdateAuthorComponent},
+
+    //Announcement
+    {path:'addAnnouncement', component:AddAnnouncementComponent},
+ 
 
   ],
   
