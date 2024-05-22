@@ -1,115 +1,106 @@
-import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { LoanTransactionService } from '../../../services/loan-transaction.service';
 import { AuthService } from '../../../../core/services/Auth.service';
-import { MemberService } from '../../../services/member.service';
-import { BookService } from '../../../services/book.service';
 import { LoanTransaction } from '../../../models/loanTransaction';
-import { Response } from '../../../models/response';
-import { LoanGetById } from '../../../models/LoanGetById';
 import { ResponseModel } from '../../../models/responseModel';
-import { RouterModule } from '@angular/router';
-import { FormBuilder, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ReturnLoanBook } from '../../../models/returnLoanBook';
-
+import { CommonModule } from '@angular/common';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-loan-history',
   standalone: true,
   imports: [CommonModule,RouterModule,ReactiveFormsModule,FormsModule],
   templateUrl: './loan-history.component.html',
-  styleUrl: './loan-history.component.scss'
+  styleUrls: ['./loan-history.component.scss']
 })
 export class LoanHistoryComponent implements OnInit {
-  constructor(private loanService: LoanTransactionService,
-    private authService: AuthService,
-    private memberService: MemberService,
-    private bookService: BookService,
-  private formBuilder:FormBuilder) { }
-
   memberId = this.authService.loggedInMember?.id;
   loanList: LoanTransaction[] = [];
-  findLoanId!: string;
-  findLoanIdArray: string[] = [];
-  myResponse:LoanTransaction[]=[];
-  myResponseBorrowed:LoanTransaction[]=[];
-  member!:string[];
-  book!:string[];
-  daysDifference!:number;
-  daysDifferenceAbs!:number;
-  penalty!:number;
+  myResponse: LoanTransaction[] = [];
+  myResponseBorrowed: LoanTransaction[] = [];
+  penalty: number = 0;
+
+  constructor(
+    private loanService: LoanTransactionService,
+    private authService: AuthService
+  ) {}
 
   ngOnInit(): void {
-
     this.getLoans();
-    
   }
+
   getLoans() {
     this.loanService.getAll().subscribe({
       next: (response: ResponseModel<LoanTransaction>) => {
-        console.log('backendden cevap geldi:', response);
+        console.log('Backend response:', response);
         this.loanList = response.items;
-        console.log("GetLoans List:", this.loanList);
         this.filterLoansForMember();
       },
       error: (error) => {
-        console.log('backendden hatalı cevap geldi.', error);
+        console.log('Backend error:', error);
       },
       complete: () => {
-        console.log('backend isteği sonlandı.');
+        console.log('Backend request completed.');
       }
     });
   }
-  filterLoansForMember() {//ilgili kullanıcının ödünç işl
-    for (let loan of this.loanList) {
-      if (loan.memberId === this.memberId) {
-        this.myResponse.push(loan);
-        if (loan.returnStatus == 3) {
-          console.log("Status:", loan.returnStatus);//ReturnStatus'ü 3 olanları yani ödünç alınmışları console bastık
-          //Sonra bunları sayfada göster=>Kitapı iade edince returnStatus değişicek ve 3 olmayanlar artık gözükmeyecek
-          this.myResponseBorrowed.push(loan);
-         
-        }
-      }
-    }
+
+  filterLoansForMember() {
+    this.myResponse = this.loanList.filter(loan => loan.memberId === this.memberId);
+    this.myResponseBorrowed = this.myResponse.filter(loan => loan.returnStatus === 3);
   }
 
-  bookReturn(item: any): void {
+  bookReturn(item: LoanTransaction): void {
     const formData: ReturnLoanBook = {
       id: item.id, 
       bookId: item.bookId, 
       memberId: this.authService.loggedInMember ? this.authService.loggedInMember.id : '', 
       returnStatus: 2
     };
-    this.loanService.bookReturn(formData).subscribe((response) => {
-      console.log("response", response);
+    this.loanService.bookReturn(formData).subscribe(() => {
+      console.log("Book return response received");
       alert("Kitap iade edildi");
       this.myResponseBorrowed = this.myResponseBorrowed.filter(loan => loan.id !== item.id);
     });
   }
-   getReturnTimeMessage(returnTime: Date): string {
+
+  getReturnTimeMessage(returnTime: Date): string {
     const currentTime = new Date();
     const myReturnTime = new Date(returnTime);
   
-    console.log("Şimdiki zaman:", currentTime.toLocaleString(), "İade Tarihi:", myReturnTime.toLocaleString());
+    console.log("Current time:", currentTime.toLocaleString(), "Return time:", myReturnTime.toLocaleString());
   
     const timeDifference = myReturnTime.getTime() - currentTime.getTime();
-    this.daysDifference = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
-    this.daysDifferenceAbs= Math.abs(this.daysDifference)
+    const daysDifference = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
+    const daysDifferenceAbs = Math.abs(daysDifference);
+
     if (timeDifference < 0) {
-      const message: string = `İade süresi ${(this.daysDifferenceAbs)} gün geçti.`;
-      this.penalty=this.daysDifferenceAbs*3;
-      return message;
-    } else if (timeDifference >= 0) {
-      const message: string = `İade süresinin dolmasına ${this.daysDifferenceAbs} gün kaldı.`;
-      return message;
+      this.penalty = daysDifferenceAbs * 3;
+      return `İade süresi ${daysDifferenceAbs} gün geçti. Ceza tutarı: ${this.penalty} TL`;
+    } else if (timeDifference > 0) {
+      return `İade süresinin dolmasına ${daysDifferenceAbs} gün kaldı.`;
     } else {
-      const message: string = "İade süresi bugün doluyor.";
-      return message;
+      return "İade süresi bugün doluyor.";
     }
   }
-  
-  
-}
 
-    
+  calculateTotalPenalty(): number {
+    return this.myResponseBorrowed.reduce((total, loan) => total + (this.getPenaltyForLoan(loan)), 0);
+  }
+
+  getPenaltyForLoan(loan: LoanTransaction): number {
+    const returnTime = new Date(loan.returnTime);
+    const currentTime = new Date();
+    const timeDifference = returnTime.getTime() - currentTime.getTime();
+    const daysDifference = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
+    const daysDifferenceAbs = Math.abs(daysDifference);
+
+    if (timeDifference < 0) {
+      return daysDifferenceAbs * 3;
+    } else {
+      return 0;
+    }
+  }
+}

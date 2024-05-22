@@ -27,6 +27,8 @@ import { LoanComponent } from './features/pages/loanTransaction/loan/loan.compon
 import { LoanHistoryComponent } from './features/pages/user-account/loan-history/loan-history.component';
 import { AboutUsComponent } from './features/pages/about-us/about-us.component';
 import { AddAnnouncementComponent } from './features/pages/admin/announcement/add-announcement/add-announcement.component';
+import { ReservationComponent } from './features/pages/reservation/reservation/reservation.component';
+import { ReservationhistoryComponent } from './features/pages/user-account/reservation-history/reservationhistory/reservationhistory.component';
 
 
 
@@ -42,16 +44,16 @@ export const routes: Routes = [
   {path:"books/author/:authorId",component:BookListForAuthorsComponent},
   {path:"getBooksForIsbnFilter",component:BookListForIsbnComponent},
   {path:'loanTransaction',component:LoanComponent},
-  {
-    path:'aboutus' ,component:AboutUsComponent
-  },
+  {path:'aboutus' ,component:AboutUsComponent},
+  {path:'reservation',component:ReservationComponent},
 
   
   
   {path:"homepage/userprofile/:id",component:UserAccountComponent,
   children:[
     {path:"edituser",component:UserEditComponent},
-    {path:'loanHistory',component:LoanHistoryComponent}
+    {path:'loanHistory',component:LoanHistoryComponent},
+    {path:'reservation',component:ReservationhistoryComponent}
   ]
 },
 

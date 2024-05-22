@@ -25,7 +25,7 @@
              </div>
              <div id="auth" class="btn-group "  *ngIf="isLoggedIn()" >
               <button  type="button" class="btn  dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-                <i class="bi bi-person-circle"></i> {{authService.loggedInMember?.firstName+" "+authService.loggedInMember?.lastName}}
+                <i class="bi bi-person-circle"></i> {{ authService.loggedInMember ? authService.loggedInMember.firstName + ' ' + authService.loggedInMember.lastName : 'Admin' }}
             
               </button>
               <ul class="dropdown-menu dropdown-menu-end  dropdown-menu-lg-start">

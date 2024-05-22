@@ -32,28 +32,10 @@ loggedInMember: Member | null=null;
 
 constructor(private announcementService: AnnouncementService, public authService: AuthService, private tokenService: TokenService){}
 ngOnInit():void{
-this.getAnnouncement();
+
 }
 
-getAnnouncement(){
-    this.announcementService.getAll().subscribe({
-        next:(response:ResponseModel<Announcement>)=>{
-          console.log('backendden cevap geldi:',response);
-          this.announcementList = response.items;
-          console.log("AnnouncementList:",this.announcementList)
-          this.announcementList.forEach(announcement=>{
-            console.log(announcement.title);
 
-          })
-        },
-        error : (error) =>{
-          console.log('backendden hatalı cevap geldi.',error);
-        },
-        complete: () =>{
-          console.log('backend isteği sonlandı.');
-        }
-      });
-    }
 
     isLoggedIn():boolean{
       this.loggedInMember=this.authService.loggedInMember;

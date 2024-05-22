@@ -136,10 +136,14 @@ export class BookListForMembersComponent {
     
 
 
-  onSelectBook(book: GetAllBook) {
-    this.bookService.selectedBook = book; // Seçilen kitabı sakla
-    this.router.navigate(['/loanTransaction']); // loan.html sayfasına yönlendir
-  }
+    onSelectBook(book: GetAllBook, action: string) {
+      this.bookService.selectedBook = book; // Seçilen kitabı sakla
+      if (action === 'borrow') {
+        this.router.navigate(['/loanTransaction']); // Ödünç alma işlemi için yönlendir
+      } else if (action === 'reserve') {
+        this.router.navigate(['/reservation']); // Rezervasyon işlemi için yönlendir
+      }
+    }
   getBooks() {
     this.bookService.getAll().subscribe({
       next: (response: ResponseModel<GetAllBook>) => {
