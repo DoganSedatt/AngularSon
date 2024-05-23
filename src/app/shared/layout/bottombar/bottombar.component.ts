@@ -1,4 +1,3 @@
-import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { CategoryService } from '../../../features/services/category.service';
@@ -9,11 +8,12 @@ import { ResponseModel } from '../../../features/models/responseModel';
 import { BookListForMembersComponent } from '../../../features/pages/book/book-list-for-members/book-list-for-members.component';
 import { BookService } from '../../../features/services/book.service';
 import { GetAllBook } from '../../../features/models/getAllBook';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-bottombar',
   standalone: true,
-  imports: [RouterModule, CommonModule,BookListForMembersComponent],
+  imports: [CommonModule,RouterModule,BookListForMembersComponent],
   templateUrl: './bottombar.component.html',
   styleUrl: './bottombar.component.scss'
 })

@@ -18,7 +18,6 @@ import { LayoutComponent } from "../../../shared/layout/layout.component";
 import { RegisterService } from '../../services/register.service';
 import { BaseInputErrorsComponent } from '../../components/base-input-errors/base-input-errors.component';
 import { ToastrService } from 'ngx-toastr';
-import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
     selector: 'app-login',
@@ -62,30 +61,19 @@ export class LoginComponent implements OnInit {
   });
 
   onLogin() {
-    const email = this.loginForm.value.email ?? '';
-    const password = this.loginForm.value.password ?? '';
-    const authenticatorCode = this.loginForm.value.authenticatorCode ?? '';
-  
-    this.loginService.Login(email, password, authenticatorCode).subscribe({
-      next: (result: LoginResponse) => {
-        result.email = email;
-        localStorage.setItem('Token', result.accessToken.token);
-        this.toastr.success('Başarılı bir şekilde giriş yaptınız.');
-        this.onMemberLog();
-        this.router.navigateByUrl('/homepage');
-      },
-      error: (err:HttpErrorResponse) => {
-        let errorMessage = 'Giriş başarısız. Lütfen bilgilerinizi kontrol edin.';
-         const match = err.error.match(/BusinessException: (.*?)\r\n/);
-        if (match && match[1]) {
-          errorMessage = match[1]; // Hata mesajını alıyoruz
-        }
-        this.toastr.error(errorMessage);
-      }
-      
+    const email = this.loginForm.value.email?? '';
+    const password = this.loginForm.value.password?? '';
+    const authenticatorCode = this.loginForm.value.authenticatorCode?? '';
+
+    this.loginService.Login(email, password, authenticatorCode).subscribe((result: LoginResponse) => {
+      result.email = email;
+      localStorage.setItem('Token', result.accessToken.token);
+      this.toastr.success('Başarılı bir şekilde giriş yaptınız.');
+     // alert(result.email + " kullanıcısı giriş yaptı")
+      this.onMemberLog();
+      this.router.navigateByUrl('/homepage');
     });
   }
-  
 
   onMemberLog() {
     this.currentToken = this.tokenService.getToken();

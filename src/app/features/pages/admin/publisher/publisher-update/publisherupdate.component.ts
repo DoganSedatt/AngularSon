@@ -3,13 +3,10 @@ import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } 
 import { Publisher } from '../../../../models/publisher'; 
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { PublisherService } from '../../../../services/publisher.service'; 
-
-import { CommonModule } from '@angular/common';
-import { Response } from '../../../../models/response';
-import { SingleResponseModel } from '../../../../models/singleResponseModel';
 import { ResponseModel } from '../../../../models/responseModel';
 import { ToastrService } from 'ngx-toastr';
 import { BaseInputErrorsComponent } from '../../../../../core/components/base-input-errors/base-input-errors.component';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-update-publisher',
