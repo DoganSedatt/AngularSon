@@ -29,6 +29,7 @@ import { AboutUsComponent } from './features/pages/about-us/about-us.component';
 import { AddAnnouncementComponent } from './features/pages/admin/announcement/add-announcement/add-announcement.component';
 import { SearchResultsComponent } from './features/pages/search-results/search-results.component';
 import { ReservationhistoryComponent } from './features/pages/user-account/reservation-history/reservationhistory/reservationhistory.component';
+import { ReservationComponent } from './features/pages/reservation/reservation/reservation.component';
 
 
 export const routes: Routes = [
@@ -43,6 +44,7 @@ export const routes: Routes = [
   {path:"books/author/:authorId",component:BookListForAuthorsComponent},
   {path:"getBooksForIsbnFilter",component:BookListForIsbnComponent},
   {path:'loanTransaction',component:LoanComponent},
+  {path:'reservation',component:ReservationComponent},
   {
     path:'aboutus' ,component:AboutUsComponent
   },

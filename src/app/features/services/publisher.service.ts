@@ -39,6 +39,6 @@ export class PublisherService {
 
 
   deletePublisher(publisherId: number) {
-    return this.httpClient.delete(this.apiUrl + publisherId);
+    return this.httpClient.delete(this.apiUrl +'/'+ publisherId);
   }
 }

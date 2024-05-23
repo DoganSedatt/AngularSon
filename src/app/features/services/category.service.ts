@@ -41,6 +41,6 @@ export class CategoryService {
   }
 
   deleteCategory(categoryId:number){
-    return this.httpClient.delete(this.apiUrl+categoryId);
+    return this.httpClient.delete(this.apiUrl+'/'+categoryId);
   }
 }

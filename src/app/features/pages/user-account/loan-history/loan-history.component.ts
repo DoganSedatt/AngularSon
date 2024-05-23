@@ -60,7 +60,6 @@ export class LoanHistoryComponent implements OnInit {
       returnStatus: 2
     };
     this.loanService.bookReturn(formData).subscribe(() => {
-      console.log("Book return response received");
       alert("Kitap iade edildi");
       this.myResponseBorrowed = this.myResponseBorrowed.filter(loan => loan.id !== item.id);
     });

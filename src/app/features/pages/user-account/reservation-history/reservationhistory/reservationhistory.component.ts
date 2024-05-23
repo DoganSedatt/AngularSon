@@ -31,7 +31,6 @@ export class ReservationhistoryComponent implements OnInit {
     this.reservationService.getReservations(memberId).subscribe({
       next: (response: Response<Reservation>) => {
         this.reservations =response.items;
-       
         console.log('Reservations:', this.reservations); // Başarıyla alınan verileri console'a yazdırabilirsiniz
       },
       error: (error) => {

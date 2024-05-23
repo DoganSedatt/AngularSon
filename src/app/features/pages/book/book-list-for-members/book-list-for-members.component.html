@@ -38,7 +38,8 @@
             </div>
           </div>
           <div class="prd-buttons w-100">
-            <button type="button" class="btn btn-outline-danger w-50" *ngIf="authService.loggedInMember!=null" (click)="onSelectBook(item)">Ödünç Al</button>
+            <button type="button" class="btn btn-outline-danger w-50 mr-5" *ngIf="authService.loggedInMember != null" (click)="onSelectBook(item, 'borrow')">Ödünç Al</button>
+            <button type="button" class="btn btn-outline-danger w-50 mr-5" *ngIf="authService.loggedInMember != null" (click)="onSelectBook(item, 'reserve')">Rezerve Et</button>
           </div>
         </div>
       </div>

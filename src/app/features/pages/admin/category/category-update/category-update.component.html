@@ -4,7 +4,7 @@
         <div class="card-header">Güncelleme</div>
         <div class="card-body">
             <form [formGroup]="categoryUpdateForm">
-                <p>CategoryId= {{categoryService.selectedCategory.id}}</p>
+                
                 <div class="mb-3">
                     <label>Kategori Adı:</label>
                     <input type="text" placeholder={{categoryService.selectedCategory.categoryName}} formControlName="categoryName" (change)="onNameChange($event)" class="form-control" value=""/>

@@ -6,6 +6,7 @@ import { AuthService } from '../../../../core/services/Auth.service';
 import { LoanTransaction } from '../../../models/loanTransaction';
 import { LoanTransactionService } from '../../../services/loan-transaction.service';
 import { ToastrService } from 'ngx-toastr';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-loan',
@@ -35,14 +36,24 @@ export class LoanComponent implements OnInit {
       returnTime:['',Validators.required]
     })}
 
-    addToDb():void{
-      if(this.loanForm.valid){
-        const formData:LoanTransaction=this.loanForm.value;
-        this.loanService.borrowed(formData).subscribe((response)=>{
-          console.log("Ödünç alma bilgileri",response);
-          this.toastr.success(this.bookService.selectedBook.name+" isimli kitap "+ this.authService.loggedInMember?.email+" kullancısına ödünç verildi");
-        }
-      )}
+    addToDb(): void {
+      if (this.loanForm.valid) {
+        const formData: LoanTransaction = this.loanForm.value;
+        this.loanService.borrowed(formData).subscribe({
+          next: (response) => {
+            console.log("Ödünç alma bilgileri", response);
+            this.toastr.success(this.bookService.selectedBook.name + " isimli kitap " + this.authService.loggedInMember?.email + " kullancısına ödünç verildi");
+          },
+          error: (err:HttpErrorResponse) => {
+            let errorMessage = 'Ödünç almada hata!';
+             const match = err.error.match(/BusinessException: (.*?)\r\n/);
+            if (match && match[1]) {
+              errorMessage = match[1]; // Hata mesajını alıyoruz
+            }
+            this.toastr.error(errorMessage);
+          }
+        });
+      }
     }
 
 
