@@ -6,6 +6,7 @@ import { Category } from '../../../../models/Category';
 import { CategoryService } from '../../../../services/category.service';
 import { ToastrService } from 'ngx-toastr';
 import { BaseInputErrorsComponent } from '../../../../../core/components/base-input-errors/base-input-errors.component';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-category-add',
@@ -33,25 +34,26 @@ export class CategoryAddComponent {
        categoryName:["",[Validators.required, Validators.minLength(2)]],
      })
    }
-   addToDb():void{
-     if(this.categoryAddForm.valid){
-       const formData:Category=this.categoryAddForm.value;
-       console.log(formData.categoryName);
-       this.categoryService.add(formData).subscribe(
-        (response) => {
+   addToDb(): void {
+    if (this.categoryAddForm.valid) {
+      const formData: Category = this.categoryAddForm.value;
+      console.log(formData.categoryName);
+      this.categoryService.add(formData).subscribe({
+        next: (response) => {
           console.log("response", response);
           this.toastr.success(formData.categoryName.toUpperCase() + " başarıyla eklendi");
         },
-        (error) => {
-          if (error.status === 500) {
-            this.toastr.info("Eklemeye çalıştığınız veri zaten mevcut!");
-          } else {
-            this.toastr.error("Beklenmeyen bir hata oluştu, lütfen tekrar deneyin.");
+        error: (err: HttpErrorResponse) => {
+          let errorMessage = 'Kategori eklemede hata!';
+          const match = err.error.match(/BusinessException: (.*?)\r\n/);
+          if (match && match[1]) {
+            errorMessage = match[1]; // Hata mesajını alıyoruz
           }
+          this.toastr.error(errorMessage);
         }
-      );
+      });
     } else {
-      this.toastr.info("Lütfen geçerli bir kitap formu doldurun!");
+      this.toastr.info("Lütfen geçerli bir kategori formu doldurun!");
     }
-   }
+  }
 }

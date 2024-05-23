@@ -6,6 +6,7 @@ import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { ToastrService } from 'ngx-toastr';
 import { BaseInputErrorsComponent } from '../../../../../core/components/base-input-errors/base-input-errors.component';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-add-publisher',
@@ -31,25 +32,27 @@ export class AddPublisherComponent {
       name:["",[Validators.required, Validators.minLength(2)]],
     })
   }
-  addToDb():void{
-    if(this.publisherAddForm.valid){
-      const formData:Publisher=this.publisherAddForm.value;
+  addToDb(): void {
+    if (this.publisherAddForm.valid) {
+      const formData: Publisher = this.publisherAddForm.value;
       console.log(formData.name);
-      this.publisherService.add(formData).subscribe(
-        (response) => {
+      this.publisherService.add(formData).subscribe({
+        next: (response) => {
           console.log("response", response);
           this.toastr.success(formData.name.toUpperCase() + " başarıyla eklendi");
         },
-        (error) => {
-          if (error.status === 500) {
-            this.toastr.info("Eklemeye çalıştığınız veri zaten mevcut!");
-          } else {
-            this.toastr.error("Beklenmeyen bir hata oluştu, lütfen tekrar deneyin.");
+        error: (err: HttpErrorResponse) => {
+          let errorMessage = 'Yayınevi eklemede hata!';
+          const match = err.error.match(/BusinessException: (.*?)\r\n/);
+          if (match && match[1]) {
+            errorMessage = match[1]; // Hata mesajını alıyoruz
           }
+          this.toastr.error(errorMessage);
         }
-      );
+      });
     } else {
       this.toastr.info("Lütfen geçerli bir yayınevi formu doldurun!");
+    }
   }
-  }
+  
 }
